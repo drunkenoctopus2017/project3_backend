@@ -49,6 +49,12 @@ public class SystemUser implements UserDetails {
 		
 	}
 	
+	public SystemUser(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
 	public SystemUser(int id, String username, String password, boolean isEnabled, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired) {
 		super();
 		this.id = id;
