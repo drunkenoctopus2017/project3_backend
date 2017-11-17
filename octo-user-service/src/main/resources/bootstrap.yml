@@ -21,7 +21,7 @@ spring:
     tomcat:
       initial-size: 5
 server:
-  port: 8081
+  port: 0
 eureka:
   instance:
     hostname: localhost
