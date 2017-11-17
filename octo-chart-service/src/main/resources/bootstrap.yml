@@ -1,8 +1,8 @@
-#Board Service
-spring:
-  application:
-    name: octo-board-management-service
-    
+#chart service
+spring: 
+  application: 
+    name: octo-chart-service
+  
   #cloud:
   #  config:
   #    uri: http://localhost:9000
@@ -24,4 +24,4 @@ server:
 eureka:
   instance:
     hostname: localhost
-    instance-id: ${spring.application.name}:${random.int}    
+    instance-id: ${spring.application.name}:${random.int}
