@@ -8,6 +8,6 @@ public class ChartController {
 
 	@GetMapping("/")
 	public String chartTest() {
-		return "Hello Chart";
+		return "Chart Test";
 	}
 }
