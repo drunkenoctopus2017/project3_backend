@@ -33,7 +33,7 @@ public class LoginController {
 	@PostMapping(path="/login", consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public SystemUser login(@RequestBody SystemUser user){
-		
+		System.out.println("sissy: " + user.toString());
 		return user;
 	}
 	

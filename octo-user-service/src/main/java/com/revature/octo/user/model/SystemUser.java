@@ -11,15 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name="SYSTEM_USERS")
 @Component
-public class SystemUser implements UserDetails {
+public class SystemUser {//implements UserDetails {
 	/**
 	 * Version 1.0
 	 */
@@ -147,14 +147,14 @@ public class SystemUser implements UserDetails {
 	public void setCredentialsNonExpired(boolean isCredentialsNonExpired) {
 		this.isCredentialsNonExpired = isCredentialsNonExpired;
 	}
-
+/*
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority("role.getRole()"));
 		return authorities;
 	}
-	
+	*/
 	@Override
 	public String toString() {
 		return "SystemUser [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
