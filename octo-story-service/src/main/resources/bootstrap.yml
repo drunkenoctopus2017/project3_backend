@@ -3,7 +3,6 @@ spring:
     name: octo-story-service
   cloud:
     config:
-      enabled: true
       uri: http://localhost:9000
 #  jpa:
 #    database-platform: org.hibernate.dialect.Oracle10gDialect
