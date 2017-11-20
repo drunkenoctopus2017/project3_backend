@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ScrumBoardServiceApplication {
+public class OctoBoardServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ScrumBoardServiceApplication.class, args);
+		SpringApplication.run(OctoBoardServiceApplication.class, args);
 	}
 }
