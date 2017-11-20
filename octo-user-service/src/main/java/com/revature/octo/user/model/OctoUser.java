@@ -1,21 +1,9 @@
 package com.revature.octo.user.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
-@Entity
-@Table(name="OCTO_USERS")
-@Component
 public class OctoUser {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USER_ID_SEQ")
-	@SequenceGenerator(sequenceName="customer_seq", allocationSize=1, name="USER_ID_SEQ")
 	private int id;
 	
 	private String firstName;

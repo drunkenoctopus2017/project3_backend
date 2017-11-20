@@ -2,19 +2,14 @@ package com.revature.octo.board.model;
 
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 
 
 public class OctoBoard {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="BOARD_ID_SEQ")
 	private int id;
 	
-	@JoinTable(name="USER_BOARDS")
 	private int userId;
 	
 	private int storyId;

@@ -1,10 +1,12 @@
 package com.revature.octo.story.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.octo.story.model.OctoStory;
 import com.revature.octo.story.repository.OctoStoryRepository;
 
+@RestController
 public class OctoStoryController {
 	/*
 	 * Story DAO Methods
