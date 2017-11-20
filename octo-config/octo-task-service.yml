@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: octo-task-service
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    database: ORACLE
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:oracle:thin:@octocat.cjcqerm3c0hj.us-east-2.rds.amazonaws.com:1521:ORCL
+    username: octocat_user
+    password: p4ssw0rd
+    driver-class-name: oracle.jdbc.OracleDriver
+    tomcat:
+      initial-size: 5
+server:
+  port: 0
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${random.int}
