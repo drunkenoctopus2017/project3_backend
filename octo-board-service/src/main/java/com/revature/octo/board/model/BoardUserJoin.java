@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 
+@Deprecated
 @Entity
 @Table(name="BOARD_USER_JOIN")
 @Component
