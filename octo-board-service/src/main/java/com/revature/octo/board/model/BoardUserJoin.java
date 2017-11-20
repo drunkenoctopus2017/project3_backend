@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+
 @Entity
 @Table(name="BOARD_USER_JOIN")
 @Component
