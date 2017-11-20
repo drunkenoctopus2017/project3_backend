@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class OctoBoardServiceApplicationTests {
+public class ScrumBoardServiceApplicationTests {
 
 	@Test
 	public void contextLoads() {
