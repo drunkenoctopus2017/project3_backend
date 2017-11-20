@@ -7,6 +7,7 @@ import com.revature.octo.user.model.SystemUser;
 
 @Repository
 public interface SystemUserRepository extends CrudRepository<SystemUser, Integer> {
+	SystemUser findByUsername(String username);
 	
 }
 

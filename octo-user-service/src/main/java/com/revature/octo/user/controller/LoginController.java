@@ -1,12 +1,5 @@
 package com.revature.octo.user.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +11,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.octo.user.model.SystemUser;
-import com.revature.octo.user.repository.SystemUserRepository;
+import com.revature.octo.user.service.SystemUserService;
 
 
 @RestController
 public class LoginController {
+	
+	@Autowired
+	SystemUserService service;
 	
 	@GetMapping("/")
 	public String helloBoot() {
@@ -33,8 +29,10 @@ public class LoginController {
 	@PostMapping(path="/login", consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public SystemUser login(@RequestBody SystemUser user){
-		System.out.println("sissy: " + user.toString());
-		return user;
+//		System.out.println("sissy: " + user.toString());
+		SystemUser loggedInUser = service.loginValidation(user);
+		System.out.println(loggedInUser);
+		return loggedInUser;
 	}
 	
 	//----The following may be moved to the data service----//

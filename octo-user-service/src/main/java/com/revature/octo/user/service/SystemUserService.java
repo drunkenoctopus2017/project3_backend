@@ -1,11 +1,9 @@
 package com.revature.octo.user.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.revature.octo.user.model.SystemUser;
 
 //import org.springframework.security.core.userdetails.User;
 //import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +19,15 @@ public class SystemUserService {//implements UserDetailsService {
 	
 	@Autowired
 	SystemUserRepository userRepo;
+	
+	public SystemUser loginValidation(SystemUser user) {
+		SystemUser dbUser = userRepo.findByUsername(user.getUsername());
+		if(dbUser.getUsername().equals(user.getUsername()) && dbUser.getPassword().equals(user.getPassword())) {
+			return dbUser;
+		}
+		return null;
+	}
+	
 	/*
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
