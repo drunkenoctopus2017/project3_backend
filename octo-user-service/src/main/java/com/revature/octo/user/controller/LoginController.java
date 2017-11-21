@@ -1,5 +1,7 @@
 package com.revature.octo.user.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +31,8 @@ public class LoginController {
 	@PostMapping(path="/login", consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public SystemUser login(@RequestBody SystemUser user){
-//		System.out.println("sissy: " + user.toString());
 		SystemUser loggedInUser = service.loginValidation(user);
-		System.out.println(loggedInUser);
+		
 		return loggedInUser;
 	}
 	

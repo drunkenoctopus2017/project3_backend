@@ -1,14 +1,9 @@
 package com.revature.octo.user.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 //import org.springframework.security.core.GrantedAuthority;
@@ -34,10 +29,12 @@ public class SystemUser {//implements UserDetails {
 	private String lastName;
 	private String username;
 	private String password;
+	private int role;
 	private boolean isEnabled;
 	private boolean isAccountNonExpired;
 	private boolean isAccountNonLocked;
 	private boolean isCredentialsNonExpired;
+	
 	
 	/*
 	@OneToOne
@@ -55,15 +52,17 @@ public class SystemUser {//implements UserDetails {
 		this.password = password;
 	}
 
-	public SystemUser(int id, String username, String password, boolean isEnabled, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired) {
+	public SystemUser(int id, String username, String password, int role, boolean isEnabled, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.role = role;
 		this.isEnabled = isEnabled;
 		this.isAccountNonExpired = isAccountNonExpired;
 		this.isAccountNonLocked = isAccountNonLocked;
 		this.isCredentialsNonExpired = isCredentialsNonExpired;
+		
 	}
 
 	public SystemUser(String username, String password, boolean isEnabled, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired) {
@@ -116,6 +115,14 @@ public class SystemUser {//implements UserDetails {
 		this.password = password;
 	}
 
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
+
 	public boolean isEnabled() {
 		return isEnabled;
 	}
@@ -153,13 +160,14 @@ public class SystemUser {//implements UserDetails {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority("role.getRole()"));
 		return authorities;
-	}
+	}\
 	*/
 	@Override
 	public String toString() {
 		return "SystemUser [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
-				+ ", password=" + password + ", isEnabled=" + isEnabled + ", isAccountNonExpired=" + isAccountNonExpired
-				+ ", isAccountNonLocked=" + isAccountNonLocked + ", isCredentialsNonExpired=" + isCredentialsNonExpired
-				+ "]";
+				+ ", password=" + password + ", role=" + role + ", isEnabled=" + isEnabled + ", isAccountNonExpired="
+				+ isAccountNonExpired + ", isAccountNonLocked=" + isAccountNonLocked + ", isCredentialsNonExpired="
+				+ isCredentialsNonExpired + "]";
 	}
+
 }
