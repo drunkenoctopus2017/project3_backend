@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,7 +30,10 @@ public class SystemUser {//implements UserDetails {
 	private String lastName;
 	private String username;
 	private String password;
+	
+	@Transient
 	private int role;
+	
 	private boolean isEnabled;
 	private boolean isAccountNonExpired;
 	private boolean isAccountNonLocked;
