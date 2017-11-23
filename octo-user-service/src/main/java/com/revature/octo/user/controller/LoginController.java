@@ -78,14 +78,14 @@ public class LoginController {
 	@PostMapping(path="/login", consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public SystemUser login(@RequestBody SystemUser user){
-//		System.out.println("sissy: " + user.toString());
-		//SystemUser loggedInUser = service.loginValidation(user);
+
 		SystemUser loggedInUser = userRepo.findByUsername(user.getUsername());
-		//if (loggedInUser.getUsername().equals(user.getUsername()) && loggedInUser.getPassword().equals(user.getPassword())) {
-		//	return loggedInUser;
-		//}
+		if (loggedInUser.getUsername().equals(user.getUsername()) && loggedInUser.getPassword().equals(user.getPassword())) {
+			return loggedInUser;
+		}
 		
 		System.out.println(loggedInUser);
+
 		return loggedInUser;
 	}
 	
