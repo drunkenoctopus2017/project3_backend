@@ -11,4 +11,5 @@ import com.revature.octo.board.model.ScrumBoard;
 @Repository
 public interface ScrumBoardRepository extends CrudRepository<ScrumBoard, Integer> {
 	List<ScrumBoard> findByIdIn(ArrayList<Integer> boardList);
+	ScrumBoard findByName(String name);
 }
