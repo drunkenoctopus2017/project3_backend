@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,12 +29,21 @@ public class SystemUser {//implements UserDetails {
 	@Column(name="ID")
 	private int id;
 	
+	@Size(min=2)
+	@NotNull
 	private String firstName;
 	
+	@Size(min=2)
+	@NotNull
 	private String lastName;
 	
+	//Temporarily min 1 so that we can have fast typing test data.
+	@Size(min=1)
+	@NotNull
 	private String username;
 	
+	@Size(min=1)
+	@NotNull
 	private String password;
 	
 	private boolean isEnabled;
