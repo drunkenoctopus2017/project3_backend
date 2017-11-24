@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.octo.story.model.Story;
@@ -15,6 +16,11 @@ public class StoryController {
 	
 	@Autowired
 	StoryRepository storyRepo;
+	
+	@GetMapping(path="/getStoriesByBoardId/{boardId}")
+	public List<Story> getStoriesByBoardId(@PathVariable int boardId) {
+		return storyRepo.findByBoardId(boardId);
+	}
 	
 	@GetMapping(path="/getStories")
 	public List<Story> getStories() {

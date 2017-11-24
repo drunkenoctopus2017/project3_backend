@@ -3,13 +3,9 @@ package com.revature.octo.board.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +21,18 @@ public class ScrumBoardController {
 	@Autowired
 	ScrumBoardRepository boardRepo;
 	
+	@PostMapping(path="/getScrumBoardIdAndNameByIds", consumes = "application/json", produces = "application/json")
+	public List<Object> getBoardIdAndName(@RequestBody List<Integer> boardIds) {
+		return boardRepo.getScrumBoardIdAndNameByIds(boardIds);
+	}
+	
+	@PostMapping(path="/getBoardsByIds", consumes = "application/json", produces = "application/json")
+	public List<ScrumBoard> getScrumBoardsByIds(@RequestBody List<Integer> boardIds) {
+		return boardRepo.findByIdIn(boardIds);
+	}
+	
 	@GetMapping(path="/getBoardById/{id}")
-	public ScrumBoard getBoardIds(@PathVariable int id) {
+	public ScrumBoard getBoardById(@PathVariable int id) {
 		ScrumBoard board = boardRepo.findOne(id);
 		return board;
 	}
