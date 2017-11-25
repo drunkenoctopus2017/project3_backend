@@ -8,24 +8,28 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="SCRUM_TASK")
-public class ScrumTask {
+@Table(name="TASK")
+public class Task {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	@NotNull
-	private int status;
+	private int storyId;
 	
 	@NotNull
+	private int status;
+
+	@NotNull
 	private String description;
-	
-	public ScrumTask() {
+		
+	public Task() {
 	}
 	
-	public ScrumTask(int id, int status, String description) {
+	public Task(int id, int storyId, int status, String description) {
 		this.id= id;
+		this.storyId = storyId;
 		this.status = status;
 		this.description = description;
 	}
@@ -36,6 +40,14 @@ public class ScrumTask {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getStoryId() {
+		return storyId;
+	}
+
+	public void setStoryId(int storyId) {
+		this.storyId = storyId;
 	}
 
 	public int getStatus() {
@@ -53,6 +65,4 @@ public class ScrumTask {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
 }
