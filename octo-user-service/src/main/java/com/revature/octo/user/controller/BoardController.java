@@ -2,6 +2,7 @@ package com.revature.octo.user.controller;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -75,38 +76,40 @@ public class BoardController {
 	@PostMapping(path="/updateBoardUsers/{boardId}", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<SystemUser>> updateBoardUsers(@PathVariable String boardId, @RequestBody List<SystemUser> updatedList){
+		System.out.println(updatedList);
+		
 		Integer boardNum = Integer.parseInt(boardId);
 		List<SystemUser> currentBoardUsers = (List<SystemUser>) userRepo.findByBoardUserJoins_boardId(boardNum);
 		
-		System.out.println("CURRENT BOARD USERS: " + currentBoardUsers);
-		System.out.println("NEW LIST OF USERS:" + updatedList);
+		System.out.println("\n\nCURRENT BOARD USERS: " + currentBoardUsers);
+		System.out.println("\n\nNEW LIST OF USERS:" + updatedList);
 		
 		SystemUser su = null;
 		SystemUser cbu = null;
 		int size = (updatedList.size() > currentBoardUsers.size()) ? updatedList.size() : currentBoardUsers.size();
+		
 		for(int i=0; i < size; i++) {
-			if(updatedList.get(i) != null) {
-				su = updatedList.get(i);
+			su = updatedList.get(i);
+			if(su != null) {
 				if(!currentBoardUsers.contains(su)){
-					BoardUserJoin newBuj = new BoardUserJoin(boardNum, su);
-					su.getBoardUserJoins().add(newBuj);
-					boardUserRepo.save(newBuj);
-					userRepo.save(su);
 					currentBoardUsers.add(su);
+					BoardUserJoin bujToAdd = new BoardUserJoin(boardNum, su);
+					boardUserRepo.save(bujToAdd);
+					break;
 				}
 			}
 			if(currentBoardUsers.get(i) != null) {
 				cbu = currentBoardUsers.get(i);
 				if(!updatedList.contains(cbu)) {
-					BoardUserJoin oldBuj = new BoardUserJoin(boardNum, cbu);
-					cbu.getBoardUserJoins().remove(oldBuj);
-					boardUserRepo.delete(oldBuj);
-					userRepo.save(cbu);
+
 					currentBoardUsers.remove(cbu);
+					BoardUserJoin bujToDelete = new BoardUserJoin(boardNum, su);
+					boardUserRepo.delete(bujToDelete);
+					break;
 				}
 			}	
 		}
-		System.out.println("current board users: " + currentBoardUsers);
+		System.out.println("\n\nBoard Users should be updated: " + currentBoardUsers);
 		//currentBoardUsers now contains new members and old members have been removed, existing users remain
 		return new ResponseEntity<List<SystemUser>>(currentBoardUsers, HttpStatus.OK);
 	}
