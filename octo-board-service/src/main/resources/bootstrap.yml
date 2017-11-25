@@ -15,7 +15,7 @@ spring:
 #      ddl-auto: create
 #  datasource:
 #    url: jdbc:oracle:thin:@octocat.cjcqerm3c0hj.us-east-2.rds.amazonaws.com:1521:ORCL
-#    username: scrum_board_db
+#    username: octocat_user
 #    password: p4ssw0rd
 #    driver-class-name: oracle.jdbc.OracleDriver
 #    tomcat:
