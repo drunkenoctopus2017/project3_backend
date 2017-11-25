@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="STORY")
@@ -28,6 +29,7 @@ public class Story {
 	@Min(0)
 	private int points;
 	
+	@Size(max=2000)
 	private String description;
 	
 	public Story() {}
