@@ -1,6 +1,5 @@
 package com.revature.octo.user.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.octo.user.model.BoardUserJoin;
 import com.revature.octo.user.model.SystemUser;
+import com.revature.octo.user.repository.BoardUserJoinRepository;
 import com.revature.octo.user.repository.SystemUserRepository;
 
 @RestController
@@ -26,6 +26,9 @@ public class BoardController {
 	
 	@Autowired
 	SystemUserRepository userRepo;
+	
+	@Autowired
+	BoardUserJoinRepository boardUserRepo;
 
 	@GetMapping(path="/getBoardsForUser/{userId}")
 	public ResponseEntity<String> getBoardIds(@PathVariable String userId, HttpServletRequest request) {
@@ -71,9 +74,40 @@ public class BoardController {
 	
 	@PostMapping(path="/updateBoardUsers/{boardId}", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<SystemUser>> updateBoardUsers(@PathVariable String boardId, @RequestBody List<BoardUserJoin> boardUsers){
-		System.out.println(boardUsers);
+	public ResponseEntity<List<SystemUser>> updateBoardUsers(@PathVariable String boardId, @RequestBody List<SystemUser> updatedList){
+		Integer boardNum = Integer.parseInt(boardId);
+		List<SystemUser> currentBoardUsers = (List<SystemUser>) userRepo.findByBoardUserJoins_boardId(boardNum);
 		
-		return new ResponseEntity<List<SystemUser>>(new ArrayList<SystemUser>(), HttpStatus.OK);
+		System.out.println("CURRENT BOARD USERS: " + currentBoardUsers);
+		System.out.println("NEW LIST OF USERS:" + updatedList);
+		
+		SystemUser su = null;
+		SystemUser cbu = null;
+		int size = (updatedList.size() > currentBoardUsers.size()) ? updatedList.size() : currentBoardUsers.size();
+		for(int i=0; i < size; i++) {
+			if(updatedList.get(i) != null) {
+				su = updatedList.get(i);
+				if(!currentBoardUsers.contains(su)){
+					BoardUserJoin newBuj = new BoardUserJoin(boardNum, su);
+					su.getBoardUserJoins().add(newBuj);
+					boardUserRepo.save(newBuj);
+					userRepo.save(su);
+					currentBoardUsers.add(su);
+				}
+			}
+			if(currentBoardUsers.get(i) != null) {
+				cbu = currentBoardUsers.get(i);
+				if(!updatedList.contains(cbu)) {
+					BoardUserJoin oldBuj = new BoardUserJoin(boardNum, cbu);
+					cbu.getBoardUserJoins().remove(oldBuj);
+					boardUserRepo.delete(oldBuj);
+					userRepo.save(cbu);
+					currentBoardUsers.remove(cbu);
+				}
+			}	
+		}
+		System.out.println("current board users: " + currentBoardUsers);
+		//currentBoardUsers now contains new members and old members have been removed, existing users remain
+		return new ResponseEntity<List<SystemUser>>(currentBoardUsers, HttpStatus.OK);
 	}
 }
