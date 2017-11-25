@@ -11,8 +11,8 @@ spring:
 #    hibernate:
 #      ddl-auto: create
 #  datasource:
-#    url: jdbc:oracle:thin:@octocat.cjcqerm3c0hj.us-east-2.rds.amazonaws.com:1521:ORCL
-#    username: octocat_user
+#    url: jdbc:oracle:thin:@octocat.cjcqerm3c0hj.us-east-2.tards.amazonaws.com:1521:ORCL
+#    username: task_db
 #    password: p4ssw0rd
 #    driver-class-name: oracle.jdbc.OracleDriver
 #    tomcat:
