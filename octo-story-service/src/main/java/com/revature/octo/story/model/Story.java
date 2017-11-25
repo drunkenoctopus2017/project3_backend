@@ -29,6 +29,7 @@ public class Story {
 	@Min(0)
 	private int points;
 	
+	@Size(max=2000)
 	private String description;
 	
 	public Story() {}
