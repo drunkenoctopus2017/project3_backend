@@ -3,6 +3,7 @@ package com.revature.octo.storyhist.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -29,8 +30,10 @@ public class StoryHistoryController {
 	StoryEventRepository eventRepo;
 	
 	@StreamListener(target=Sink.INPUT)
-	public void test(Object message) {
+	public void test(Map message) {
 		System.out.println("Test Message: " + message);
+		Integer id = (Integer)message.get("id");
+		System.out.println("ID: " + id);
 	}
 	
 	@GetMapping("/")
