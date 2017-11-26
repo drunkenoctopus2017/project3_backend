@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +18,7 @@ import com.revature.octo.storyhist.model.StoryProfile;
 import com.revature.octo.storyhist.repository.StoryEventRepository;
 import com.revature.octo.storyhist.repository.StoryProfileRepository;
 
+@EnableBinding(Sink.class)
 @RestController
 public class StoryHistoryController {
 	
@@ -23,6 +27,11 @@ public class StoryHistoryController {
 	
 	@Autowired
 	StoryEventRepository eventRepo;
+	
+	@StreamListener(target=Sink.INPUT)
+	public void test(Object message) {
+		System.out.println("Test Message: " + message);
+	}
 	
 	@GetMapping("/")
 	public String chartTest() {
