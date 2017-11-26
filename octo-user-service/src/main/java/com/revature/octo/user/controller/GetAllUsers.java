@@ -19,11 +19,7 @@ public class GetAllUsers {
 	@GetMapping(path="/addUsers", produces="application/json")
 	@ResponseBody
 	public List<SystemUser> getAllUsers() {
-		System.out.println("GetMapping -getAllUsers");
-		List<SystemUser> users = (List<SystemUser>) userRepo.findAll();
-		System.out.println(users);
-		return users;
-		
+		return (List<SystemUser>) userRepo.findAll();
 	}
 
 }
