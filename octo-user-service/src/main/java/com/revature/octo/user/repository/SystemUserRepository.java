@@ -13,6 +13,5 @@ public interface SystemUserRepository extends CrudRepository<SystemUser, Integer
 	SystemUser findById(int id);
 	SystemUser findByUsername(String username);
 	List<SystemUser> findByBoardUserJoins_boardId(int boardId);
-	void save(BoardUserJoin buj);
 }
 
