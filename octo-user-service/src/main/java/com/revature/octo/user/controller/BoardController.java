@@ -1,8 +1,9 @@
 package com.revature.octo.user.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -75,42 +76,70 @@ public class BoardController {
 	
 	@PostMapping(path="/updateBoardUsers/{boardId}", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<SystemUser>> updateBoardUsers(@PathVariable String boardId, @RequestBody List<SystemUser> updatedList){
-		System.out.println(updatedList);
+	public ResponseEntity<Boolean> updateBoardUsers(@PathVariable String boardId, @RequestBody List<SystemUser> updatedList){
+		//printing out the request body
+		System.out.println("\n\nupdated list of board users:" + updatedList + "\n\n");
 		
+		//boardId: String -> Integer
 		Integer boardNum = Integer.parseInt(boardId);
-		List<SystemUser> currentBoardUsers = (List<SystemUser>) userRepo.findByBoardUserJoins_boardId(boardNum);
 		
-		System.out.println("\n\nCURRENT BOARD USERS: " + currentBoardUsers);
-		System.out.println("\n\nNEW LIST OF USERS:" + updatedList);
+		//Get the list of board members prior to addition/deletion
+		List<SystemUser> currentBoardUsers = (List<SystemUser>) boardUserRepo.getSystemUsersByBoardId(boardNum);
 		
-		SystemUser su = null;
-		SystemUser cbu = null;
-		int size = (updatedList.size() > currentBoardUsers.size()) ? updatedList.size() : currentBoardUsers.size();
-		
-		for(int i=0; i < size; i++) {
-			su = updatedList.get(i);
-			if(su != null) {
-				if(!currentBoardUsers.contains(su)){
-					currentBoardUsers.add(su);
-					BoardUserJoin bujToAdd = new BoardUserJoin(boardNum, su);
-					boardUserRepo.save(bujToAdd);
-					break;
-				}
-			}
-			if(currentBoardUsers.get(i) != null) {
-				cbu = currentBoardUsers.get(i);
-				if(!updatedList.contains(cbu)) {
-
-					currentBoardUsers.remove(cbu);
-					BoardUserJoin bujToDelete = new BoardUserJoin(boardNum, su);
-					boardUserRepo.delete(bujToDelete);
-					break;
-				}
-			}	
+		//user ids prior to addition/removal
+		List<Integer> oldUserIds = new ArrayList<Integer>();
+		for(SystemUser member : currentBoardUsers) {
+			oldUserIds.add(member.getId());
 		}
-		System.out.println("\n\nBoard Users should be updated: " + currentBoardUsers);
-		//currentBoardUsers now contains new members and old members have been removed, existing users remain
-		return new ResponseEntity<List<SystemUser>>(currentBoardUsers, HttpStatus.OK);
+		
+		//user ids after addition/removal 
+		List<Integer> newUserIds = new ArrayList<Integer>();
+		for(SystemUser newMember : updatedList) {
+			newUserIds.add(newMember.getId());
+		}
+		
+		SystemUser user = null;
+		BoardUserJoin buj = null;
+		
+		//DELETION:
+		//if the new list of board ids does NOT contain an id from before addition/deletion took place,
+		//delete BoardUserJoin from SystemUser, update boardUserRepo accordingly
+		for(Integer i : oldUserIds) {
+			if(!newUserIds.contains(i)) {
+				user = userRepo.findById(i);
+				System.out.println("\n\nUSERS BUJS BEFORE: " + user.getBoardUserJoins());
+				Set<BoardUserJoin> bujSet = user.getBoardUserJoins();
+				for(BoardUserJoin b : bujSet) {
+					if(b.getBoardId() == boardNum) {
+						bujSet.remove(b);
+						boardUserRepo.delete(b);
+						break;
+					}
+				}
+				System.out.println("\n\nUSERS BUJS AFTER: " + user.getBoardUserJoins() + "\n\n");
+				System.out.println("\n\nALL BUJS: " + boardUserRepo.findAll() + "\n\n");
+			}
+		}
+		
+		//ADDITION:
+		//Remove all previously existing board members from newUserIds list
+		//now the list will only contain new members' ids
+		newUserIds.removeAll(oldUserIds);
+		
+		//add BoardUserJoins per SystemUser, update boardUserRepo accordingly
+		for(Integer i : newUserIds) {
+			user = userRepo.findById(i);
+			buj = new BoardUserJoin(boardNum, user);
+			if(user.getBoardUserJoins() == null) {
+				HashSet<BoardUserJoin> bujs = new HashSet<BoardUserJoin>();
+				bujs.add(buj);
+				user.setBoardUserJoins(bujs);
+			}else {
+				user.getBoardUserJoins().add(buj);
+			}
+			boardUserRepo.save(buj);
+		}
+		
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 }
