@@ -35,6 +35,12 @@ public class StoryHistoryController {
 		System.out.println("Test Message: " + message);
 		Integer id = (Integer)message.get("id");
 		System.out.println("ID: " + id);
+		StoryProfile sp = profileRepo.findOne(id);
+		if(sp != null) {
+			System.out.println("Found StoryProfile: " + sp);
+		}else {
+			System.out.println("DIDN'T FIND... create new?");
+		}
 	}
 	
 	@GetMapping("/")
