@@ -71,10 +71,6 @@ public class ScrumBoardController {
 	
 	@PostMapping(path="/createUpdateBoard",consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ScrumBoard createUpdateBoard(@RequestBody ScrumBoard sb) {
-		System.out.println("Board to edit or create: "+sb);
-//		if(boardRepo.exists(sb.getId())) {
-//			return boardRepo.save(sb);
-//		}
 		return boardRepo.save(sb);
 	}
 }
