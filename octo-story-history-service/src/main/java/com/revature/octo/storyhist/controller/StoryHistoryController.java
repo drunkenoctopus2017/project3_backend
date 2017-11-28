@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,5 +71,10 @@ public class StoryHistoryController {
 	@PostMapping(path="/getStoryProfilesByIds", consumes = "application/json", produces = "application/json")
 	public List<StoryProfile> getStoryProfilesByIds(@RequestBody List<Integer> storyIds) {
 		return profileRepo.findByIdIn(storyIds);
+	}
+	
+	@GetMapping(path="/getStoryProfilesByBoardId/{boardId}")
+	public List<StoryProfile> getStoryProfilesByBoardId(@PathVariable int boardId) {
+		return profileRepo.findByBoardId(boardId);
 	}
 }
