@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="STORY_PROFILE")
@@ -19,6 +20,9 @@ public class StoryProfile {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@NotNull
+	private int boardId;
 	
 	@Min(0)
 	private int points;
@@ -34,6 +38,14 @@ public class StoryProfile {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getBoardId() {
+		return boardId;
+	}
+
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
 	}
 
 	public int getPoints() {
@@ -54,6 +66,7 @@ public class StoryProfile {
 
 	@Override
 	public String toString() {
-		return "StoryProfile [id=" + id + ", points=" + points + ", storyEvents=" + storyEvents + "]";
+		return "StoryProfile [id=" + id + ", boardId=" + boardId + ", points=" + points + ", storyEvents=" + storyEvents
+				+ "]";
 	}
 }
