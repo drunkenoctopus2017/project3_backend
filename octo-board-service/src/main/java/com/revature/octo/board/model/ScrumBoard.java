@@ -90,6 +90,13 @@ public class ScrumBoard {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
+
+	@Override
+	public String toString() {
+		return "ScrumBoard [id=" + id + ", name=" + name + ", startDate=" + startDate + ", duration=" + duration + "]";
+	}
+	
+	
 }
 
 class DateSerializer extends StdSerializer<Date> {

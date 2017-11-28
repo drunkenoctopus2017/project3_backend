@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,12 +22,12 @@ public class ScrumBoardController {
 	@Autowired
 	ScrumBoardRepository boardRepo;
 	
-	@PostMapping(path="/getScrumBoardIdAndNameByIds", consumes = "application/json", produces = "application/json")
+	@PostMapping(path="/getScrumBoardIdAndNameByIds", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> getBoardIdAndName(@RequestBody List<Integer> boardIds) {
 		return boardRepo.getScrumBoardIdAndNameByIds(boardIds);
 	}
 	
-	@PostMapping(path="/getBoardsByIds", consumes = "application/json", produces = "application/json")
+	@PostMapping(path="/getBoardsByIds", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<ScrumBoard> getScrumBoardsByIds(@RequestBody List<Integer> boardIds) {
 		return boardRepo.findByIdIn(boardIds);
 	}
@@ -66,5 +67,10 @@ public class ScrumBoardController {
 		boardList.add(board);
 		
 		return boardList;
+	}
+	
+	@PostMapping(path="/createUpdateBoard",consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ScrumBoard createUpdateBoard(@RequestBody ScrumBoard sb) {
+		return boardRepo.save(sb);
 	}
 }
