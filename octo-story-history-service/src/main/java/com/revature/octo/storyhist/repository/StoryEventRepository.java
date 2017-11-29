@@ -1,11 +1,14 @@
 package com.revature.octo.storyhist.repository;
 
+import java.util.Date;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.revature.octo.storyhist.model.StoryEvent;
+import com.revature.octo.storyhist.model.StoryProfile;
 
 @Repository
-public interface StoryEventRepository extends CrudRepository<StoryEvent, Integer>{
-
+public interface StoryEventRepository extends CrudRepository<StoryEvent, Integer> {
+	public StoryEvent findByStoryProfileAndModifiedDate(StoryProfile storyProfile, Date modifiedDate);
 }

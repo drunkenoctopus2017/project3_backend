@@ -1,7 +1,6 @@
 package com.revature.octo.storyhist.controller;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,17 +29,38 @@ public class StoryHistoryController {
 	@Autowired
 	StoryEventRepository eventRepo;
 	
+	/**
+	 * This can only be called when a story is UPDATED.
+	 * The story must pre-exist in the separate story database.
+	 * A separate method must be used when a new story is created.
+	 * 
+	 * @param message
+	 */
 	@StreamListener(target=Sink.INPUT)
-	public void test(Map message) {
+	public void updateStoryHistory(Map message) {
 		System.out.println("Test Message: " + message);
-		Integer id = (Integer)message.get("id");
-		System.out.println("ID: " + id);
-		StoryProfile sp = profileRepo.findOne(id);
-		if(sp != null) {
-			System.out.println("Found StoryProfile: " + sp);
-		}else {
-			System.out.println("DIDN'T FIND... create new?");
+		Integer storyId = (Integer) message.get("id");
+		if (!profileRepo.exists(storyId)) {
+			System.out.println("Story profile missing for storyId: " + storyId);
+			return;
 		}
+		System.out.println("ID: " + storyId);
+		StoryProfile sp = profileRepo.findOne(storyId);
+		sp.setPoints((Integer) message.get("points"));
+		profileRepo.save(sp);
+		Date updated = (Date) message.get("updated");
+		
+		//System.out.println("Found StoryProfile: " + sp);
+		StoryEvent storyEvent = eventRepo.findByStoryProfileAndModifiedDate(sp, updated);
+		if (storyEvent != null) {
+			storyEvent = new StoryEvent();
+			storyEvent.setStoryProfile(sp);
+			storyEvent.setModifiedDate(updated);
+		}
+		storyEvent.setDone(
+			(Integer) message.get("laneId") == 60 ? 1 : 0
+		);
+		eventRepo.save(storyEvent);
 	}
 	
 	@GetMapping("/")
