@@ -1,0 +1,11 @@
+server.contextPath: /auth
+server:
+  port: 8090
+
+keystore:
+  password: drunkenOctopus
+  
+spring:
+  mvc:
+    dispatchOptionsRequest: true
+  
