@@ -4,9 +4,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.octo.user.model.BoardUserJoin;
@@ -43,8 +48,9 @@ public class SystemUserController {
 		return boardMembers;
 	}
 	
-	@GetMapping(path="/deleteScrumBoardIdFromUser/{id}")
-	public String deleteBoardIdFromUser(@PathVariable int id, @RequestBody SystemUser su) {
+	@PostMapping(path="/deleteScrumBoardIdFromUser/{id}", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Boolean> deleteBoardIdFromUser(@PathVariable int id, @RequestBody SystemUser su) {
 		// get current user
 		SystemUser user = userRepo.findById(su.getId());
 		// remove BUJ corresponding to this board from User's set of BUJ's
@@ -59,6 +65,6 @@ public class SystemUserController {
 		for(BoardUserJoin buj : bujEntries) {
 			boardUserRepo.delete(buj);
 		}
-		return "success! deleted this board id: "+id+" from this user's BUJ's. user: "+su;
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 }
