@@ -30,8 +30,8 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter{
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
-			.withClient("octouser")
-			.secret("drunkOctopus")
+			.withClient("jpwrunyan")
+			.secret("jetfuel")
 			.authorizedGrantTypes("client_credentials")
 			.scopes("resource-server-read")
 			.accessTokenValiditySeconds(20);
