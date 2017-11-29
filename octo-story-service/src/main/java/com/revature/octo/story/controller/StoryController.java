@@ -34,4 +34,12 @@ public class StoryController {
 	public Story updateStory(@RequestBody Story story) {
 		return storyRepo.save(story);
 	}
+	
+	@GetMapping(path="/deleteStoriesByBoardId/{boardId}")
+	public void deleteStoriesByBoardId(@PathVariable int boardId) {
+		List<Story> toBeDeleted = storyRepo.findByBoardId(boardId);
+		for(Story s : toBeDeleted) {
+			storyRepo.delete(s);
+		}
+	}
 }
