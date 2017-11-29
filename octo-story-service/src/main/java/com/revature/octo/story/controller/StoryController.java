@@ -36,10 +36,11 @@ public class StoryController {
 	}
 	
 	@GetMapping(path="/deleteStoriesByBoardId/{boardId}")
-	public void deleteStoriesByBoardId(@PathVariable int boardId) {
+	public String deleteStoriesByBoardId(@PathVariable int boardId) {
 		List<Story> toBeDeleted = storyRepo.findByBoardId(boardId);
 		for(Story s : toBeDeleted) {
 			storyRepo.delete(s);
 		}
+		return "successfully deleted stories for this board: "+boardId;
 	}
 }

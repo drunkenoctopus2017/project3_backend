@@ -63,11 +63,12 @@ public class TaskController {
 	}
 	
 	@GetMapping("/deleteTasksByStoryId/{storyId}")
-	public void deleteTasksByStoryId(@PathVariable int storyId){
+	public String deleteTasksByStoryId(@PathVariable int storyId){
 		List<Task> toBeDeleted = taskRepo.getTaskByStoryId(storyId);
 		for(Task t : toBeDeleted) {
 			taskRepo.delete(t);
 		}
+		return "Sucessfully deleted tasks for this story: "+storyId;
 	}
 	
 }

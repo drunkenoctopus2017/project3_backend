@@ -44,7 +44,7 @@ public class SystemUserController {
 	}
 	
 	@GetMapping(path="/deleteScrumBoardIdFromUser/{id}")
-	public void deleteBoardIdFromUser(@PathVariable int id, @RequestBody SystemUser su) {
+	public String deleteBoardIdFromUser(@PathVariable int id, @RequestBody SystemUser su) {
 		// get current user
 		SystemUser user = userRepo.findById(su.getId());
 		// remove BUJ corresponding to this board from User's set of BUJ's
@@ -59,5 +59,6 @@ public class SystemUserController {
 		for(BoardUserJoin buj : bujEntries) {
 			boardUserRepo.delete(buj);
 		}
+		return "success! deleted this board id: "+id+" from this user's BUJ's. user: "+su;
 	}
 }
