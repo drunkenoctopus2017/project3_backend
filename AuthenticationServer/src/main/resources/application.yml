@@ -1,0 +1,16 @@
+server.contextPath: /auth
+server:
+  port: 8090
+
+keystore:
+  password: drunkenOctopus
+  
+spring:
+  mvc:
+    dispatchOptionsRequest: true
+      
+  datasource:
+    url: jdbc:oracle:thin:@octocat.cjcqerm3c0hj.us-east-2.rds.amazonaws.com:1521:ORCL
+    username: system_user_db
+    password: p4ssw0rd
+    driverClassName: oracle.jdbc.OracleDriver
