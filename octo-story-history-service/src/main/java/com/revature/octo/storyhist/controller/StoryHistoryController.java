@@ -117,4 +117,12 @@ public class StoryHistoryController {
 		return newStories;
 	}
 	*/
+	
+	@GetMapping(path="/deleteStoryProfilesByBoardId/{boardId}")
+	public void deleteStoryProfilesByBoardId(@PathVariable int boardId) {
+		List<StoryProfile> toBeDeleted = profileRepo.findByBoardId(boardId);
+		for(StoryProfile sp : toBeDeleted) {
+			profileRepo.delete(sp);
+		}
+	}
 }

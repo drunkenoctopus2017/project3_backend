@@ -17,4 +17,7 @@ public interface BoardUserJoinRepository extends CrudRepository<BoardUserJoin, I
 	
 	@Query("select b.systemUser from BoardUserJoin b where b.boardId = :id")
     List<SystemUser> getSystemUsersByBoardId(@Param("id") int boardId);
+	
+	@Query("select b from BoardUserJoin b where b.boardId = :id")
+    List<BoardUserJoin> getEntriesByBoardId(@Param("id") int boardId);
 }

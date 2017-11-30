@@ -16,57 +16,58 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
+import com.revature.authentication.service.SystemUserService;
 
 @Configuration
 @EnableAuthorizationServer
-public class OAuth2Config extends AuthorizationServerConfigurerAdapter{
+public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
 	@Autowired
 	Environment environment;
-	
+
 	@Autowired
 	AuthenticationManager authenticationManager;
 	
+	@Autowired
+	SystemUserService systemUserService;
+
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
-			.withClient("jpwrunyan")
-			.secret("jetfuel")
-			.authorizedGrantTypes("client_credentials")
+			.withClient("drunkenOctopus")
+			.secret("secret")
+			.authorizedGrantTypes("password", "refresh_token")
 			.scopes("resource-server-read")
 			.accessTokenValiditySeconds(20);
+		
 	}
-	
+
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.tokenStore(this.tokenStore())
-			.tokenEnhancer(this.jwtTokenEnhancer())
-			.authenticationManager(authenticationManager);
+		endpoints.tokenStore(tokenStore())
+			.tokenEnhancer(jwtTokenEnhancer())
+			.authenticationManager(authenticationManager)
+			.userDetailsService(systemUserService);
 	}
-	
+
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 		security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
 	}
-	
-	
+
 	@Bean
 	protected JwtAccessTokenConverter jwtTokenEnhancer() {
 		String pwd = environment.getProperty("keystore.password");
-		KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), pwd.toCharArray());
+		KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"),
+				pwd.toCharArray());
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
 		converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jwt"));
 		return converter;
 	}
-	
+
 	@Bean
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(this.jwtTokenEnhancer());
 	}
-	
-	
-	
-	
-	
-	
+
 }

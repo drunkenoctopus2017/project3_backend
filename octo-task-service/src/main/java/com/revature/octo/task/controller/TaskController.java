@@ -61,4 +61,21 @@ public class TaskController {
 		
 		return taskList;
 	}
+		
+	@GetMapping(path="/deleteTaskById/{id}")
+	public String deleteTaskById(@PathVariable int id) {
+		System.out.println("Deleting task " + id);
+		taskRepo.delete(id);
+		System.out.println("Task " + id + " has been deleted");
+		return "Successfully deleted task" + id;
+	}
+
+	@GetMapping("/deleteTasksByStoryId/{storyId}")
+	public String deleteTasksByStoryId(@PathVariable int storyId){
+		List<Task> toBeDeleted = taskRepo.getTaskByStoryId(storyId);
+		for(Task t : toBeDeleted) {
+			taskRepo.delete(t);
+		}
+		return "Sucessfully deleted tasks for this story: "+storyId;
+	}
 }

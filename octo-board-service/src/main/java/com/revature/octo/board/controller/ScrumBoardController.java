@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,5 +71,13 @@ public class ScrumBoardController {
 	@PostMapping(path="/createUpdateBoard",consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ScrumBoard createUpdateBoard(@RequestBody ScrumBoard sb) {
 		return boardRepo.save(sb);
+	}
+	
+	@GetMapping(path="/deleteBoardById/{id}")
+	public String deleteBoardById(@PathVariable int id) {
+		System.out.println("Id of board to be deleted"+id);
+		boardRepo.delete(id);
+		System.out.println("deleted board? "+id);
+		return "successfully deleted this board: "+id;
 	}
 }
