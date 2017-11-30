@@ -1,5 +1,8 @@
 package com.revature.storyupdater.controller;
 
+import java.util.Date;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.support.MessageBuilder;
@@ -16,7 +19,8 @@ public class StoryUpdateController {
 	StoryUpdateMessageSource source;
 
 	@PostMapping(path="/updateStory", consumes=MediaType.APPLICATION_JSON_VALUE/*, produces=MediaType.APPLICATION_JSON_VALUE*/)
-	public String updateStory(@RequestBody Object story) {
+	public String updateStory(@RequestBody Map story) {
+		story.put("updated", new Date());
 		source.updateStoryMessagePlace().send(
 			MessageBuilder.withPayload(story).build()
 		);
