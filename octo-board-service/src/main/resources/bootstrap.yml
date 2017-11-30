@@ -6,6 +6,7 @@ spring:
   cloud:
     config:
       uri: http://localhost:9000
+
     
 #  jpa:
 #    database-platform: org.hibernate.dialect.Oracle10gDialect
@@ -25,4 +26,4 @@ spring:
 #eureka:
 #  instance:
 #    hostname: localhost
-#    instance-id: ${spring.application.name}:${random.int}    
+#    instance-id: ${spring.application.name}:${random.int}   
