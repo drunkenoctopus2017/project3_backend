@@ -1,5 +1,10 @@
 spring:
   application:
     name: octo-zuul
+  cloud:
+    config:
+      uri: http://localhost:9000
+      
 server:
   port: 8765
+  

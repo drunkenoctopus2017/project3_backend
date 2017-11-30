@@ -6,6 +6,8 @@ keystore:
   password: drunkenOctopus
   
 spring:
+  application:
+    name: octo-auth
   mvc:
     dispatchOptionsRequest: true
       

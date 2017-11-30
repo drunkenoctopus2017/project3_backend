@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.revature.octo.user.model.BoardUserJoin;
 import com.revature.octo.user.model.SystemUser;
 
 @Repository

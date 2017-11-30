@@ -1,12 +1,7 @@
 package com.revature.octo.user.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +18,6 @@ import com.revature.octo.user.model.BoardUserJoin;
 import com.revature.octo.user.model.SystemUser;
 import com.revature.octo.user.repository.BoardUserJoinRepository;
 import com.revature.octo.user.repository.SystemUserRepository;
-import com.revature.octo.user.service.SystemUserService;
 
 
 @RestController
