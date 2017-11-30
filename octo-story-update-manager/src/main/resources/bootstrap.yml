@@ -1,28 +1,28 @@
 spring:
   application:
     name: octo-story-update-manager
-  rabbitmq:
-    host: localhost
-    password: guest
-    username: guest
-    port: 5672
-    
-  
-  cloud:
-    stream:
-      bindings:
-        UpdateStoryMessageSource:
-          destination: updatestorymessage
-    default:
-      contentType: application/json
-        
-#    config:
-#      uri: http://localhost:9000
+#  rabbitmq:
+#    host: localhost
+#    password: guest
+#    username: guest
+#    port: 5672
+#    
+#  
+#  cloud:
+#    stream:
+#      bindings:
+#        UpdateStoryMessageSource:
+#          destination: updatestorymessage
+#    default:
+#      contentType: application/json
+#        
+    config:
+      uri: http://localhost:9000
 
-server:
-  port: 9001
-eureka:
-  instance:
-    hostname: localhost
-    instance-id: ${spring.application.name}:${random.int}
+#server:
+#  port: 9001
+#eureka:
+#  instance:
+#    hostname: localhost
+#    instance-id: ${spring.application.name}:${random.int}
     
