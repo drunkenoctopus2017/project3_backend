@@ -31,9 +31,17 @@ spring:
 #    driver-class-name: oracle.jdbc.OracleDriver
 #    tomcat:
 #      initial-size: 5
-#server:
-#  port: 8110
-#eureka:
-#  instance:
-#    hostname: localhost
-#    instance-id: ${spring.application.name}:${random.int}
+server:
+  port: 8110
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${random.int}
+security:
+  oauth2:
+    resource:
+      accessTokenUri: http://localhost:8090/auth/oauth/check_token
+      userAuthorizationUri: http://localhost:8090/auth/oauth/authorize
+      userInfoUri: http://localhost:8090/auth/user
+      jwt:
+        keyUri: http://localhost:8090/auth/oauth/token_key 
