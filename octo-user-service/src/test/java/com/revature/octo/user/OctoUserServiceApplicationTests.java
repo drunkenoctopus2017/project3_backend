@@ -48,21 +48,6 @@ public class OctoUserServiceApplicationTests {
 		boardUserJoinSaveTested = false;
 	}
 	
-	// SystemUserController tests
-	@Test
-	public void testGetBoardIds() {
-		List<Object> boardIds = sysUserCtrl.getBoardIds(6);
-		int actual = (Integer) boardIds.get(0);
-		Assert.assertEquals(29, actual);
-	}
-	
-	@Test
-	public void testGetBoardMembersByBoardId() {
-		List<SystemUser> users = sysUserCtrl.getBoardMembersByBoardId(29);
-		int actual = users.size();
-		Assert.assertEquals(6, actual);
-	}
-	
 	@Test
 	public void testDeleteBoardIdFromUser() {
 		SystemUser su = userRepo.findById(6);
