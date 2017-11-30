@@ -35,3 +35,4 @@ spring:
 #      userInfoUri: http://localhost:8090/auth/user
 #      jwt:
 #        keyUri: http://localhost:8090/auth/oauth/token_key 
+
