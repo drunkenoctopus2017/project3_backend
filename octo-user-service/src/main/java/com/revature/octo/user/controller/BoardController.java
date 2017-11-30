@@ -33,7 +33,7 @@ public class BoardController {
 	BoardUserJoinRepository boardUserRepo;
 
 	@GetMapping(path="/getBoardsForUser/{userId}")
-	public ResponseEntity<String> getBoardIds(@PathVariable String userId, HttpServletRequest request) {
+	public ResponseEntity<String> getBoardIds(@PathVariable String userId) {
 		int userNum = Integer.parseInt(userId);
 		SystemUser systemUser = userRepo.findOne(userNum);
 		Set<BoardUserJoin> boardSet = systemUser.getBoardUserJoins();
@@ -48,7 +48,7 @@ public class BoardController {
 	}
 
 	@GetMapping(path="/getAllUserNotOnBoard/{boardId}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<SystemUser>> getAllUsersOnBoard(@PathVariable String boardId, HttpServletRequest request) {
+	public ResponseEntity<List<SystemUser>> getAllUsersOnBoard(@PathVariable String boardId) {
 		int boardNum = Integer.parseInt(boardId);
 		System.out.println("boardId: " + boardId);
 		
