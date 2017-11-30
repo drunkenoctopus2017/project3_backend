@@ -73,4 +73,12 @@ public class ScrumBoardController {
 	public ScrumBoard createUpdateBoard(@RequestBody ScrumBoard sb) {
 		return boardRepo.save(sb);
 	}
+	
+	@GetMapping(path="/deleteBoardById/{id}")
+	public String deleteBoardById(@PathVariable int id) {
+		System.out.println("Id of board to be deleted"+id);
+		boardRepo.delete(id);
+		System.out.println("deleted board? "+id);
+		return "successfully deleted this board: "+id;
+	}
 }
