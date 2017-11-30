@@ -23,6 +23,7 @@ spring:
 #  instance:
 #    hostname: localhost
 #    instance-id: ${spring.application.name}:${random.int}
+<<<<<<< HEAD
 #security:
 #  oauth2:
 #    resource:
@@ -32,3 +33,5 @@ spring:
 #      jwt:
 #        keyUri: http://localhost:8090/auth/oauth/token_key 
 
+=======
+>>>>>>> 98be441b80b90a4aab71dde7899f0dde4334d99f

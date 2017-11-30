@@ -7,7 +7,6 @@ spring:
       uri: ${SPRING_CONFIG_URI:http://localhost:9000}
 
 
-    
 #  jpa:
 #    database-platform: org.hibernate.dialect.Oracle10gDialect
 #    database: ORACLE
@@ -27,6 +26,7 @@ spring:
 #  instance:
 #    hostname: localhost
 #    instance-id: ${spring.application.name}:${random.int}   
+<<<<<<< HEAD
 #security:
 #  oauth2:
 #    resource:
@@ -42,3 +42,5 @@ spring:
 #  instance:
 #    hostname: localhost
 #    instance-id: ${spring.application.name}:${random.int}   
+=======
+>>>>>>> 98be441b80b90a4aab71dde7899f0dde4334d99f

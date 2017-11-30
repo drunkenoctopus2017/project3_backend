@@ -33,4 +33,3 @@ spring:
 #      jwt:
 #        keyUri: http://localhost:8090/auth/oauth/token_key 
 
-    
