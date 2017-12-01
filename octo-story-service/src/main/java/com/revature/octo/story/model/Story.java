@@ -82,7 +82,11 @@ public class Story {
 	public void setPoints(int points) {
 		this.points = points;
 	}
-
+	
+	public void setPoints(String points) {
+		this.points = Integer.parseInt(points);
+	}
+	
 	public String getDescription() {
 		return description;
 	}

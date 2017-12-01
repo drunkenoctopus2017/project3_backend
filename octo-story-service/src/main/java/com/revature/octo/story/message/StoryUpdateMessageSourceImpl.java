@@ -1,4 +1,4 @@
-package com.revature.storyupdater.message;
+package com.revature.octo.story.message;
 
 import org.springframework.cloud.stream.annotation.EnableBinding;
 

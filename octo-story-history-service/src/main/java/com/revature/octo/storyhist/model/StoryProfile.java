@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 public class StoryProfile {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	@NotNull
@@ -55,7 +54,11 @@ public class StoryProfile {
 	public void setPoints(int points) {
 		this.points = points;
 	}
-
+	
+	public void setPoints(String points) {
+		this.points = Integer.parseInt(points);
+	}
+	
 	public List<StoryEvent> getStoryEvents() {
 		return storyEvents;
 	}
