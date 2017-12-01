@@ -16,7 +16,7 @@ spring:
 #    password: p4ssw0rd
 #    driver-class-name: oracle.jdbc.OracleDriver
 #    tomcat:
-#      initial-size: 5
+#      initial-size: 1
 #server:
 #  port: 0
 #eureka:
