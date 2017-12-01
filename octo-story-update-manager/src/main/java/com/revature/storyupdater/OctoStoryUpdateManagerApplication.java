@@ -6,6 +6,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @EnableEurekaClient
 @SpringBootApplication
+@Deprecated
 public class OctoStoryUpdateManagerApplication {
 
 	public static void main(String[] args) {

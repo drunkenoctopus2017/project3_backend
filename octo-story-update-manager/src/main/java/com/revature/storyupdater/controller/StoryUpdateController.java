@@ -20,6 +20,7 @@ public class StoryUpdateController {
 
 	@PostMapping(path="/updateStory", consumes=MediaType.APPLICATION_JSON_VALUE/*, produces=MediaType.APPLICATION_JSON_VALUE*/)
 	public String updateStory(@RequestBody Map story) {
+		System.out.println("StoryUpdateManager updateStory()" + story.toString());
 		story.put("updated", new Date());
 		source.updateStoryMessagePlace().send(
 			MessageBuilder.withPayload(story).build()

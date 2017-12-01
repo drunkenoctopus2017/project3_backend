@@ -30,37 +30,84 @@ public class StoryHistoryController {
 	StoryEventRepository eventRepo;
 	
 	/**
-	 * This can only be called when a story is UPDATED.
-	 * The story must pre-exist in the separate story database.
-	 * A separate method must be used when a new story is created.
+	 * When a story is either created or updated, persist it in the history.
+	 * This is called by StoryController in the Story management micro-service.
 	 * 
 	 * @param message
 	 */
 	@StreamListener(target=Sink.INPUT)
-	public void updateStoryHistory(Map message) {
-		System.out.println("Test Message: " + message);
-		Integer storyId = (Integer) message.get("id");
-		if (!profileRepo.exists(storyId)) {
-			System.out.println("Story profile missing for storyId: " + storyId);
-			return;
+	public void updateStoryHistory(Map<String, Object> message) {
+		System.out.println("StoryHistoryController updateStoryHistory: " + message.toString());
+		Integer storyId = (Integer) message.get("storyId");
+		Integer boardId = (Integer) message.get("boardId");
+		Integer points = (Integer) message.get("points");
+		Date updated = (Date) message.get("updated");
+		Boolean done = (Boolean) message.get("done");
+		
+		StoryProfile storyProfile = profileRepo.findById(storyId);
+		if (storyProfile == null) {
+			//Story profile not found. Create a new one.
+			storyProfile = new StoryProfile();
 		}
-		System.out.println("ID: " + storyId);
-		StoryProfile sp = profileRepo.findOne(storyId);
+		storyProfile.setId(storyId);
+		storyProfile.setBoardId(boardId);
+		storyProfile.setPoints(points);
+		storyProfile = profileRepo.save(storyProfile);
+		
+		final int ONE_DAY = 86400000;
+		long updatedDay = (long) Math.floor(updated.getTime() / ONE_DAY);
+		StoryEvent storyEvent = null;
+		for (StoryEvent savedStoryEvent : storyProfile.getStoryEvents()) {
+			long lastUpdatedDay = (long) Math.floor(savedStoryEvent.getModifiedDate().getTime() / ONE_DAY);
+			if (updatedDay == lastUpdatedDay) {
+				storyEvent = savedStoryEvent;
+				break;
+			}
+		}
+		if (storyEvent == null) {
+			storyEvent = new StoryEvent();
+		} else {
+			storyEvent = eventRepo.findOne(storyEvent.getId());
+		}
+		//StoryEvent storyEvent = eventRepo.findByStoryProfileAndModifiedDate(storyProfile, updated);
+		//if (storyEvent == null) {
+		//	storyEvent = new StoryEvent();
+		//}
+		storyEvent.setStoryProfile(storyProfile);
+		storyEvent.setDone(done ? 1 : 0);
+		storyEvent.setModifiedDate(updated);
+		eventRepo.save(storyEvent);
+		/*
+		Integer storyId = (Integer) message.get("id");
+		StoryProfile sp;
+		if (storyId != null) {
+			sp = profileRepo.findById(storyId);
+			if (sp == null) {
+				sp = new StoryProfile();
+			}
+		} else {
+			sp = new StoryProfile();
+		}
+		
+		sp.setId(storyId);
+		sp.setBoardId((Integer) message.get("boardId"));
 		sp.setPoints((Integer) message.get("points"));
-		profileRepo.save(sp);
+		System.out.println("Story ID: " + storyId);
+		sp = profileRepo.save(sp);
 		Date updated = (Date) message.get("updated");
 		
 		//System.out.println("Found StoryProfile: " + sp);
 		StoryEvent storyEvent = eventRepo.findByStoryProfileAndModifiedDate(sp, updated);
-		if (storyEvent != null) {
+		if (storyEvent == null) {
 			storyEvent = new StoryEvent();
-			storyEvent.setStoryProfile(sp);
 			storyEvent.setModifiedDate(updated);
 		}
+		storyEvent.setStoryProfile(sp);
 		storyEvent.setDone(
 			(Integer) message.get("laneId") == 60 ? 1 : 0
 		);
 		eventRepo.save(storyEvent);
+		*/
 	}
 	
 	@GetMapping("/")
