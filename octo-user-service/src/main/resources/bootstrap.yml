@@ -34,9 +34,5 @@ spring:
 #      userAuthorizationUri: http://localhost:8090/auth/oauth/authorize
 #      userInfoUri: http://localhost:8090/auth/user
 #      jwt:
-<<<<<<< HEAD
 #        keyUri: http://localhost:8090/auth/oauth/token_key     
-=======
-#        keyUri: http://localhost:8090/auth/oauth/token_key 
->>>>>>> 98be441b80b90a4aab71dde7899f0dde4334d99f
 
