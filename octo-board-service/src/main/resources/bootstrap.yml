@@ -4,8 +4,7 @@ spring:
     name: octo-board-management-service  
   cloud:
     config:
-      uri: ${SPRING_CONFIG_URI:http://localhost:9000}
-
+      uri: ${SPRING_CONFIG_URI:http://18.217.119.188:9000}
     
 #  jpa:
 #    database-platform: org.hibernate.dialect.Oracle10gDialect
