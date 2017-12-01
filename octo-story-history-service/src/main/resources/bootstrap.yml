@@ -17,7 +17,7 @@ spring:
 #      contentType: application/json
   cloud:
     config:
-      uri: http://localhost:9000
+      uri: http://18.217.119.188:9000
 #  jpa:
 #    database-platform: org.hibernate.dialect.Oracle10gDialect
 #    database: ORACLE
