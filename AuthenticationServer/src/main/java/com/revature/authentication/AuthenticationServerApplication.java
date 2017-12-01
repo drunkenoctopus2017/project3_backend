@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin(allowCredentials="true", allowedHeaders="*")
+@CrossOrigin(allowCredentials="true")
 @SpringBootApplication
 @EnableEurekaClient
 public class AuthenticationServerApplication {
