@@ -1,7 +1,6 @@
 package com.revature.octo.storyhist.controller;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,17 +29,51 @@ public class StoryHistoryController {
 	@Autowired
 	StoryEventRepository eventRepo;
 	
+	/**
+	 * When a story is either created or updated, persist it in the history.
+	 * This is called by StoryController in the Story management micro-service.
+	 * 
+	 * @param message
+	 */
 	@StreamListener(target=Sink.INPUT)
-	public void test(Map message) {
-		System.out.println("Test Message: " + message);
-		Integer id = (Integer)message.get("id");
-		System.out.println("ID: " + id);
-		StoryProfile sp = profileRepo.findOne(id);
-		if(sp != null) {
-			System.out.println("Found StoryProfile: " + sp);
-		}else {
-			System.out.println("DIDN'T FIND... create new?");
+	public void updateStoryHistory(Map<String, Object> message) {
+		System.out.println("StoryHistoryController updateStoryHistory: " + message.toString());
+		Integer storyId = (Integer) message.get("storyId");
+		Integer boardId = (Integer) message.get("boardId");
+		Integer points = (Integer) message.get("points");
+		Date updated = (Date) message.get("updated");
+		Boolean done = (Boolean) message.get("done");
+		
+		StoryProfile storyProfile = profileRepo.findById(storyId);
+		if (storyProfile == null) {
+			//Story profile not found. Create a new one.
+			storyProfile = new StoryProfile();
 		}
+		storyProfile.setId(storyId);
+		storyProfile.setBoardId(boardId);
+		storyProfile.setPoints(points);
+		storyProfile = profileRepo.save(storyProfile);
+		
+		final int ONE_DAY = 86400000;
+		long updatedDay = (long) Math.floor(updated.getTime() / ONE_DAY);
+		StoryEvent storyEvent = null;
+		for (StoryEvent savedStoryEvent : storyProfile.getStoryEvents()) {
+			long lastUpdatedDay = (long) Math.floor(savedStoryEvent.getModifiedDate().getTime() / ONE_DAY);
+			if (updatedDay == lastUpdatedDay) {
+				storyEvent = savedStoryEvent;
+				break;
+			}
+		}
+		if (storyEvent == null) {
+			storyEvent = new StoryEvent();
+		} else {
+			storyEvent = eventRepo.findOne(storyEvent.getId());
+		}
+		
+		storyEvent.setStoryProfile(storyProfile);
+		storyEvent.setDone(done ? 1 : 0);
+		storyEvent.setModifiedDate(updated);
+		eventRepo.save(storyEvent);
 	}
 	
 	@GetMapping("/")
@@ -62,41 +95,6 @@ public class StoryHistoryController {
 	public List<StoryProfile> getStoryProfilesByBoardId(@PathVariable int boardId) {
 		return profileRepo.findByBoardId(boardId);
 	}
-	/*
-	@GetMapping("/createHistory")
-	public List<StoryProfile> createHistory() {
-		List<StoryProfile> newStories = new ArrayList<>();
-		for (int i = 1; i < 10; i++) {
-			StoryProfile newStory;
-			newStory = new StoryProfile();
-			newStory.setBoardId(1);
-			newStory.setPoints(i);
-			newStories.add(newStory);
-		}
-		newStories = (List<StoryProfile>) profileRepo.save(newStories);
-		
-		Calendar cal = Calendar.getInstance();
-		List<StoryEvent> newEvents = new ArrayList<>();
-		for (StoryProfile storyProfile : newStories) {
-			StoryEvent newEvent = new StoryEvent();
-			newEvent.setStoryProfile(storyProfile);
-			newEvent.setDone(0);
-			cal.set(2017, 10, 1);
-			newEvent.setModifiedDate(cal.getTime());
-			newEvents.add(newEvent);
-			
-			newEvent = new StoryEvent();
-			newEvent.setStoryProfile(storyProfile);
-			newEvent.setDone(1);
-			cal.set(2017, 10, 1 + storyProfile.getPoints());
-			newEvent.setModifiedDate(cal.getTime());
-			newEvents.add(newEvent);
-		}
-		eventRepo.save(newEvents);
-		
-		return newStories;
-	}
-	*/
 	
 	@GetMapping(path="/deleteStoryProfilesByBoardId/{boardId}")
 	public void deleteStoryProfilesByBoardId(@PathVariable int boardId) {
