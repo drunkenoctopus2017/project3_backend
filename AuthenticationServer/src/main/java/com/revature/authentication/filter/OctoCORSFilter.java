@@ -30,10 +30,10 @@ public class OctoCORSFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		response.setHeader("Access-Control-Allow-Origin", "*");
+//		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS, DELETE");
 		response.setHeader("Access-Control-Max-Age", "3600");
-		response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization");
+		response.setHeader("Access-Control-Allow-Headers", "x-requested-with, Authorization");
 		
 		if("OPTIONS".equalsIgnoreCase(request.getMethod())){
 			response.setStatus(HttpServletResponse.SC_OK);
