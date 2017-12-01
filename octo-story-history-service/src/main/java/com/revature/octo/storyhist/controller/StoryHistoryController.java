@@ -69,45 +69,11 @@ public class StoryHistoryController {
 		} else {
 			storyEvent = eventRepo.findOne(storyEvent.getId());
 		}
-		//StoryEvent storyEvent = eventRepo.findByStoryProfileAndModifiedDate(storyProfile, updated);
-		//if (storyEvent == null) {
-		//	storyEvent = new StoryEvent();
-		//}
+		
 		storyEvent.setStoryProfile(storyProfile);
 		storyEvent.setDone(done ? 1 : 0);
 		storyEvent.setModifiedDate(updated);
 		eventRepo.save(storyEvent);
-		/*
-		Integer storyId = (Integer) message.get("id");
-		StoryProfile sp;
-		if (storyId != null) {
-			sp = profileRepo.findById(storyId);
-			if (sp == null) {
-				sp = new StoryProfile();
-			}
-		} else {
-			sp = new StoryProfile();
-		}
-		
-		sp.setId(storyId);
-		sp.setBoardId((Integer) message.get("boardId"));
-		sp.setPoints((Integer) message.get("points"));
-		System.out.println("Story ID: " + storyId);
-		sp = profileRepo.save(sp);
-		Date updated = (Date) message.get("updated");
-		
-		//System.out.println("Found StoryProfile: " + sp);
-		StoryEvent storyEvent = eventRepo.findByStoryProfileAndModifiedDate(sp, updated);
-		if (storyEvent == null) {
-			storyEvent = new StoryEvent();
-			storyEvent.setModifiedDate(updated);
-		}
-		storyEvent.setStoryProfile(sp);
-		storyEvent.setDone(
-			(Integer) message.get("laneId") == 60 ? 1 : 0
-		);
-		eventRepo.save(storyEvent);
-		*/
 	}
 	
 	@GetMapping("/")
@@ -129,41 +95,6 @@ public class StoryHistoryController {
 	public List<StoryProfile> getStoryProfilesByBoardId(@PathVariable int boardId) {
 		return profileRepo.findByBoardId(boardId);
 	}
-	/*
-	@GetMapping("/createHistory")
-	public List<StoryProfile> createHistory() {
-		List<StoryProfile> newStories = new ArrayList<>();
-		for (int i = 1; i < 10; i++) {
-			StoryProfile newStory;
-			newStory = new StoryProfile();
-			newStory.setBoardId(1);
-			newStory.setPoints(i);
-			newStories.add(newStory);
-		}
-		newStories = (List<StoryProfile>) profileRepo.save(newStories);
-		
-		Calendar cal = Calendar.getInstance();
-		List<StoryEvent> newEvents = new ArrayList<>();
-		for (StoryProfile storyProfile : newStories) {
-			StoryEvent newEvent = new StoryEvent();
-			newEvent.setStoryProfile(storyProfile);
-			newEvent.setDone(0);
-			cal.set(2017, 10, 1);
-			newEvent.setModifiedDate(cal.getTime());
-			newEvents.add(newEvent);
-			
-			newEvent = new StoryEvent();
-			newEvent.setStoryProfile(storyProfile);
-			newEvent.setDone(1);
-			cal.set(2017, 10, 1 + storyProfile.getPoints());
-			newEvent.setModifiedDate(cal.getTime());
-			newEvents.add(newEvent);
-		}
-		eventRepo.save(newEvents);
-		
-		return newStories;
-	}
-	*/
 	
 	@GetMapping(path="/deleteStoryProfilesByBoardId/{boardId}")
 	public void deleteStoryProfilesByBoardId(@PathVariable int boardId) {

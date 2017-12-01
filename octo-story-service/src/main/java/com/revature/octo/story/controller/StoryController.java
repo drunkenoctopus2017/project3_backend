@@ -28,39 +28,6 @@ public class StoryController {
 	@Autowired
 	StoryRepository storyRepo;
 	
-	/**
-	 * This can only be called when a story is UPDATED.
-	 * The story must pre-exist in the separate story database.
-	 * A separate method must be used when a new story is created.
-	 * 
-	 * Note: this method overloads the endpoint updateStory method.
-	 * 
-	 * @param message The key/values storing data to update the story with.
-	 */
-	/*
-	@StreamListener(target=Sink.INPUT)
-	public void updateStory(Map message) {
-		System.out.println("update story with params: " + message.toString());
-		Integer storyId = (Integer) message.get("id");
-		Story sp;
-		if (storyId == null || !storyRepo.exists(storyId)) {
-			//System.out.println("***updateStory story missing for storyId: " + storyId);
-			//return;
-			sp = new Story();
-			sp.setBoardId((Integer) message.get("boardId"));
-		} else {
-			sp = storyRepo.findOne(storyId);
-		}
-		sp.setPoints((Integer) message.get("points"));
-		sp.setDescription((String) message.get("description"));
-		sp.setLaneId((Integer) message.get("laneId"));
-		sp.setName((String) message.get("name"));
-		
-		storyRepo.save(sp);
-		System.out.println("story was updated " + sp.toString());
-	}
-	*/
-	
 	@GetMapping(path="/getStoriesByBoardId/{boardId}")
 	public List<Story> getStoriesByBoardId(@PathVariable int boardId) {
 		return storyRepo.findByBoardId(boardId);
