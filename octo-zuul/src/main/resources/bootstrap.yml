@@ -6,7 +6,6 @@ spring:
       uri: ${SPRING_CONFIG_URI:http://localhost:9000}
 server:
   port: 8765
-  
 hystrix:
  command:
    default:
