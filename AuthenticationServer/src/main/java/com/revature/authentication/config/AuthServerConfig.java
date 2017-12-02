@@ -38,7 +38,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 			.secret("secret")
 			.authorizedGrantTypes("password", "refresh_token")
 			.scopes("resource-server-read")
-			.accessTokenValiditySeconds(600);
+			.accessTokenValiditySeconds(3600);
 		
 	}
 
