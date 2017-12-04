@@ -1,9 +1,9 @@
 spring:
   application:
     name: octo-story-service
-  cloud:
-    config:
-      uri: http://18.217.119.188:9000
+#  cloud:
+#    config:
+#      uri: http://18.217.119.188:9000
 #  jpa:
 #    database-platform: org.hibernate.dialect.Oracle10gDialect
 #    database: ORACLE
@@ -31,3 +31,43 @@ spring:
 #      userInfoUri: http://localhost:8090/auth/user
 #      jwt:
 #        keyUri: http://localhost:8090/auth/oauth/token_key 
+ rabbitmq:
+    host: localhost
+    password: guest
+    username: guest
+    port: 5672  
+  cloud:
+    stream:
+      bindings:
+        UpdateStoryMessageSource:
+          destination: updatestorymessage
+    default:
+      contentType: application/json
+
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    database: ORACLE
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:oracle:thin:@octocat.cjcqerm3c0hj.us-east-2.rds.amazonaws.com:1521:ORCL
+    username: story_db
+    password: p4ssw0rd
+    driver-class-name: oracle.jdbc.OracleDriver
+    tomcat:
+      initial-size: 1
+server:
+  port: 12000
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${random.int}
+security:
+  oauth2:
+    resource:
+      accessTokenUri: http://localhost:8090/auth/oauth/check_token
+      userAuthorizationUri: http://localhost:8090/auth/oauth/authorize
+      userInfoUri: http://localhost:8090/auth/user
+      jwt:
+        keyUri: http://localhost:8090/auth/oauth/token_key
