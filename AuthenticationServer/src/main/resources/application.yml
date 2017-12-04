@@ -12,12 +12,23 @@ spring:
   application:
     name: octo-auth
       
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    database: ORACLE
+    show-sql: true
+    hibernate:
+      ddl-auto: update
   datasource:
     url: jdbc:oracle:thin:@octocat.crwx5goxs3em.us-east-2.rds.amazonaws.com:1521:ORCL
     username: system_user_db
     password: p4ssw0rd
     driverClassName: oracle.jdbc.OracleDriver
+    tomcat:
+      initial-size: 1
+
 eureka:
-  instance:
-    hostname: localhost
-    instance-id: ${spring.application.name}:${random.int}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${DOCKER_HOST_IP}:8761/eureka/
