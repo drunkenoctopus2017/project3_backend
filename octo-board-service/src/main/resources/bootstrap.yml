@@ -14,7 +14,7 @@ spring:
       ddl-auto: update
   datasource:
     url: jdbc:oracle:thin:@octocat.cjcqerm3c0hj.us-east-2.rds.amazonaws.com:1521:ORCL
-    username: octocat_user
+    username: scrum_board_db
     password: p4ssw0rd
     driver-class-name: oracle.jdbc.OracleDriver
     tomcat:
