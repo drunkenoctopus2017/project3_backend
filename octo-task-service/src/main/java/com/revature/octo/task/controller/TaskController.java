@@ -20,6 +20,11 @@ public class TaskController {
 	@Autowired
 	TaskRepository taskRepo;
 	
+	// needed for mocking the Repo in unit tests
+	public void setTaskRepo(TaskRepository mockRepo) {
+		this.taskRepo = mockRepo;
+	}
+	
 	public List<Task> getScrumTasksByIds(List<Integer> taskIds){
 		return taskRepo.findByIdIn(taskIds);
 	}

@@ -1,5 +1,7 @@
 package com.revature.octo.task;
 
+import static org.mockito.Mockito.mock;
+
 import java.util.List;
 
 import org.junit.Before;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.octo.task.controller.TaskController;
 import com.revature.octo.task.model.Task;
 import com.revature.octo.task.repository.TaskRepository;
 
@@ -20,11 +23,17 @@ import com.revature.octo.task.repository.TaskRepository;
 public class OctoTaskServiceApplicationTests {
 	
 	@Autowired
+	TaskController taskCtrl;
+	
+	@Autowired
 	TaskRepository taskRepo;
+	
+	private TaskRepository taskRepoMock;
 
-	@BeforeClass
-	public static void staticPrep() {
-		
+	@Before
+	public void setRepoToMock() {
+		this.taskRepoMock = mock(TaskRepository.class);
+		taskCtrl.setTaskRepo(taskRepoMock);
 	}
 	
 	@Before

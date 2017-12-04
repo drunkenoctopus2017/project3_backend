@@ -1,14 +1,29 @@
+server:
+  port: 8765
+
 spring:
   application:
     name: octo-zuul
-  cloud:
-    config:
-      uri: ${SPRING_CONFIG_URI:http://18.217.119.188:9000}
-server:
-  port: 8765
+#  cloud:
+#    config:
+#      uri: ${SPRING_CONFIG_URI:http://18.217.119.188:9000}
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true 
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
 hystrix:
- command:
-   default:
-     execution:
-       timeout:
-         enabled: false
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
+zuul:
+  routes: 
+    octo-auth:
+      path: /octo-auth/**
+      sensitiveHeaders: 
+      serviceId: octo-auth
