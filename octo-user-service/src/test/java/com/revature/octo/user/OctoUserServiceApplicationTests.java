@@ -104,7 +104,7 @@ public class OctoUserServiceApplicationTests {
 	public void testSysUserRepoFindByBoardUserJoins_boardId() {
 		List<SystemUser> systemUserListOnBoard = userRepo.findByBoardUserJoins_boardId(29);
 		int actual = systemUserListOnBoard.size();
-		Assert.assertEquals(6, actual);
+		Assert.assertEquals(1, actual);
 	}
 	
 	@Test
@@ -116,7 +116,7 @@ public class OctoUserServiceApplicationTests {
 	
 	@Test
 	public void testSysUserRepoFindByUsername() {
-		SystemUser user = userRepo.findByUsername("u");
+		SystemUser user = userRepo.findByUsername("person");
 		int actual = user.getId();
 		Assert.assertEquals(6, actual);
 	}
@@ -155,14 +155,14 @@ public class OctoUserServiceApplicationTests {
 	public void testBoardUserJoinRepoGetSystemUsersByBoardId() {
 		List<SystemUser> boardMembers = boardUserRepo.getSystemUsersByBoardId(29);
 		int actual = boardMembers.size();
-		Assert.assertEquals(6, actual);
+		Assert.assertEquals(1, actual);
 	}
 	
 	@Test
 	public void testBoardUserJoinRepoGetEntriesByBoardId() {
 		List<BoardUserJoin> bujEntries = boardUserRepo.getEntriesByBoardId(29);
 		int actual = bujEntries.size();
-		Assert.assertEquals(6, actual);
+		Assert.assertEquals(1, actual);
 	}
 	
 	@Test
@@ -174,7 +174,7 @@ public class OctoUserServiceApplicationTests {
 		boardUserRepo.save(new BoardUserJoin(29, user));
 		List<BoardUserJoin> bujEntries = boardUserRepo.getEntriesByBoardId(29);
 		int actual = bujEntries.size();
-		Assert.assertEquals(7, actual);
+		Assert.assertEquals(2, actual);
 		boardUserJoinSaveTested = true;
 	}
 	
@@ -201,7 +201,7 @@ public class OctoUserServiceApplicationTests {
 		boardUserRepo.delete(buj);
 		List<BoardUserJoin> bujEntriesAfterDelete = boardUserRepo.getEntriesByBoardId(29);
 		int actual = bujEntriesAfterDelete.size();
-		Assert.assertEquals(5, actual);
+		Assert.assertEquals(0, actual);
 		boardUserRepo.save(buj); //reAdd it to preserve state of DB
 	}
 	

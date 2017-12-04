@@ -1,0 +1,5 @@
+docker swarm init --advertise-addr 18.217.119.188
+
+	workers need to use this command to join the swarm:
+		"docker swarm join --token SWMTKN-1-5x2w9j8ix2zr9e519m9oe8eisuvquxbg2az5ix6fe2uqjcqz8s-75inivptwoc9t43ort2mg9496 18.217.119.188:2377"
+docker service create --name nameYourService -p XXXX:XXXX --replicas 1 drunkenoctopus2017/nameOfImage
