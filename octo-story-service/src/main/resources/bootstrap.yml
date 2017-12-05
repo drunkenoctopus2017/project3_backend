@@ -31,12 +31,12 @@ spring:
 #      userInfoUri: http://localhost:8090/auth/user
 #      jwt:
 #        keyUri: http://localhost:8090/auth/oauth/token_key 
- rabbitmq:
+rabbitmq:
     host: localhost
     password: guest
     username: guest
     port: 5672  
-  cloud:
+cloud:
     stream:
       bindings:
         UpdateStoryMessageSource:
@@ -44,13 +44,13 @@ spring:
     default:
       contentType: application/json
 
-  jpa:
+jpa:
     database-platform: org.hibernate.dialect.Oracle10gDialect
     database: ORACLE
     show-sql: true
     hibernate:
       ddl-auto: update
-  datasource:
+datasource:
     url: jdbc:oracle:thin:@octocat.cjcqerm3c0hj.us-east-2.rds.amazonaws.com:1521:ORCL
     username: story_db
     password: p4ssw0rd
