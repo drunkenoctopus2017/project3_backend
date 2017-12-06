@@ -1,7 +1,8 @@
 # octo authentication server
-server.contextPath: /auth
+# server.contextPath: /auth
 server:
   port: 8090
+  context-path: /auth
 
 keystore:
   password: drunkenOctopus
@@ -19,7 +20,15 @@ spring:
     driverClassName: oracle.jdbc.OracleDriver
     tomcat:
       initial-size: 1
+      
 eureka:
-  instance:
-    hostname: localhost
-    instance-id: ${spring.application.name}:${random.int}
+  client:
+    register-with-eureka: true
+    fetch-registry: true 
+    serviceUrl:
+      defaultZone: http://18.217.119.188:8761/eureka/
+      
+#eureka:
+#  instance:
+#    hostname: localhost
+#    instance-id: ${spring.application.name}:${random.int}

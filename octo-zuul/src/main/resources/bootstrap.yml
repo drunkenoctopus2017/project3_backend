@@ -4,13 +4,24 @@ server:
 spring:
   application:
     name: octo-zuul
+    
+#ribbon: 
+#  eureka: 
+#    enabled: false
+#  octo-auth:
+#    enabled: false
+
+zuul:
+  RibbonRoutingFilter: 
+    route: 
+      disable: true
 
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true 
-    #serviceUrl:
-    #  defaultZone: http://localhost:8761/eureka
+    serviceUrl:
+      defaultZone: http://18.217.119.188:8761/eureka/
 
 hystrix:
   command:
@@ -19,9 +30,9 @@ hystrix:
         timeout:
           enabled: false
 
-zuul:
-  routes: 
-    octo-auth:
-      path: /octo-auth/**
-      sensitiveHeaders: 
-      serviceId: octo-auth
+#zuul:
+#  routes: 
+#    octo-auth:
+#      path: /octo-auth/**
+#      sensitiveHeaders: 
+#      serviceId: octo-auth
