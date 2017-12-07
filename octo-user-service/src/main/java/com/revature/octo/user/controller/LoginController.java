@@ -1,18 +1,11 @@
 package com.revature.octo.user.controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,21 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.octo.user.model.BoardUserJoin;
 import com.revature.octo.user.model.SystemUser;
-import com.revature.octo.user.repository.BoardUserJoinRepository;
-import com.revature.octo.user.repository.SystemUserRepository;
-import com.revature.octo.user.service.SystemUserService;
+import com.revature.octo.user.service.LoginService;
 
 
 @RestController
 public class LoginController {
-	
+
 	@Autowired
-	SystemUserRepository userRepo;
-	
-	@Autowired
-	BoardUserJoinRepository boardUserRepo;
+	LoginService loginService;
 	
 	public SystemUser loginValidation(SystemUser user) {
 		return null;
@@ -48,47 +35,18 @@ public class LoginController {
 	
 	@GetMapping("/getTestUsers")
 	public List<SystemUser> getTestUsers() {
-		return (List<SystemUser>) userRepo.findAll();
+		return loginService.getTestUsers();
 	}
 	
 	@GetMapping("/createTestUsers")
 	public List<SystemUser> createTestUsers() {
-		System.out.println("Get Mapping -Get Request /getTestUsers");
-		ArrayList<SystemUser> userList = new ArrayList<>();
-		SystemUser user = userRepo.findByUsername("jpwrunyan");
-		if (user == null) {
-			user = new SystemUser("jpwrunyan", "jetfuel");
-			userRepo.save(user);
-			boardUserRepo.save(new BoardUserJoin(1, user));
-			System.out.println("creating: " + user);
-		} else {
-			System.out.println("*user found: " + user);
-		}
-		userList.add(user);
-		user = userRepo.findByUsername("scooby");
-		if (user == null) {
-			user = new SystemUser("scooby", "doo");
-			userRepo.save(user);
-			System.out.println("creating: " + user);
-		} else {
-			System.out.println("*user found: " + user);
-		}
-		userList.add(user);
-		return userList;
+		return loginService.createTestUsers();
 	}
 	
 	@PostMapping(path="/login", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public SystemUser login(@RequestBody SystemUser user){
-
-		SystemUser loggedInUser = userRepo.findByUsername(user.getUsername());
-		if (loggedInUser.getUsername().equals(user.getUsername()) && loggedInUser.getPassword().equals(user.getPassword())) {
-			return loggedInUser;
-		}
-		
-		System.out.println(loggedInUser);
-
-		return loggedInUser;
+		return loginService.login(user);
 	}
 	
 	//----The following may be moved to the data service----//

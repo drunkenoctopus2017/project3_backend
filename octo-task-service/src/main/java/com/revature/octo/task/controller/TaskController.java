@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.octo.task.model.Task;
 import com.revature.octo.task.repository.TaskRepository;
+import com.revature.octo.task.service.TaskService;
 
 @RestController
 public class TaskController {
@@ -20,62 +21,45 @@ public class TaskController {
 	@Autowired
 	TaskRepository taskRepo;
 	
+	@Autowired
+	TaskService taskService;
+	
 	public List<Task> getScrumTasksByIds(List<Integer> taskIds){
-		return taskRepo.findByIdIn(taskIds);
+		return taskService.getScrumTasksByIds(taskIds);
 	}
 	
 	@GetMapping(path="/getTaskById/{id}")
 	public Task getTaskById(@PathVariable int id) {
-		Task task = taskRepo.findOne(id);
-		return task;
+		return taskService.getTaskById(id);
 	}
 	
 	@GetMapping(path="/getAllTasks")
 	public List<Task> getAllTasks(){
-		return (List<Task>) taskRepo.findAll();
+		return taskService.getAllTasks();
 	}
 	
 	@GetMapping(path="/getTaskByStoryId/{storyId}")
 	public List<Task> getTaskByStoryId(@PathVariable int storyId){
-		return taskRepo.getTaskByStoryId(storyId);
+		return taskService.getTaskByStoryId(storyId);
 	}
 	
 	@PostMapping(path="/createUpdateTask",consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public Task createUpdateTask(@RequestBody Task t) {
-		return taskRepo.save(t);
+		return taskService.createUpdateTask(t);
 	}
 	
-	@GetMapping("/createTestTasks")
-	public List<Task> createTestTask(){
-		ArrayList<Task> taskList = new ArrayList<>();
-		Task task = taskRepo.findOne(1);
-		if(task == null) {
-			task = new Task( 1, 1, 1, "test");
-			taskRepo.save(task);
-			System.out.println("creating: " + task);
-		} else {
-			System.out.println("*task found: " + task);
-		}
-		
-		taskList.add(task);
-		
-		return taskList;
-	}
+//	@GetMapping("/createTestTasks")
+//	public List<Task> createTestTask(){
+//		return taskService.createTestTask();
+//	}
 		
 	@GetMapping(path="/deleteTaskById/{id}")
 	public String deleteTaskById(@PathVariable int id) {
-		System.out.println("Deleting task " + id);
-		taskRepo.delete(id);
-		System.out.println("Task " + id + " has been deleted");
-		return "Successfully deleted task" + id;
+		return taskService.deleteTaskById(id);
 	}
 
 	@GetMapping("/deleteTasksByStoryId/{storyId}")
 	public String deleteTasksByStoryId(@PathVariable int storyId){
-		List<Task> toBeDeleted = taskRepo.getTaskByStoryId(storyId);
-		for(Task t : toBeDeleted) {
-			taskRepo.delete(t);
-		}
-		return "Sucessfully deleted tasks for this story: "+storyId;
+		return taskService.deleteTasksByStoryId(storyId);
 	}
 }
