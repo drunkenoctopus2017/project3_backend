@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -100,7 +101,21 @@ public class StoryHistoryController {
 	public void deleteStoryProfilesByBoardId(@PathVariable int boardId) {
 		List<StoryProfile> toBeDeleted = profileRepo.findByBoardId(boardId);
 		for(StoryProfile sp : toBeDeleted) {
+			List<StoryEvent> ses = eventRepo.findByStoryProfile(sp);
+			for(StoryEvent se : ses) {
+				eventRepo.delete(se);
+			}
 			profileRepo.delete(sp);
 		}
+	}
+	
+	@GetMapping(path="/deleteStoryProfileAndEvents/{storyId}")
+	public void deleteStoryProfileAndEvents(@PathVariable int storyId) {
+		StoryProfile sp = profileRepo.findById(storyId);
+		List<StoryEvent> ses = eventRepo.findByStoryProfile(sp);
+		for(StoryEvent se : ses) {
+			eventRepo.delete(se);
+		}
+		profileRepo.delete(sp);
 	}
 }
