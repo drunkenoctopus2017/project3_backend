@@ -75,7 +75,20 @@ public class StoryHistoryService {
 	public void deleteStoryProfilesByBoardId(int boardId) {
 		List<StoryProfile> toBeDeleted = profileRepo.findByBoardId(boardId);
 		for(StoryProfile sp : toBeDeleted) {
+			List<StoryEvent> ses = eventRepo.findByStoryProfile(sp);
+			for(StoryEvent se : ses) {
+				eventRepo.delete(se);
+			}
 			profileRepo.delete(sp);
 		}
+	}
+	
+	public void deleteStoryProfileAndEvents(int storyId) {
+		StoryProfile sp = profileRepo.findById(storyId);
+		List<StoryEvent> ses = eventRepo.findByStoryProfile(sp);
+		for(StoryEvent se : ses) {
+			eventRepo.delete(se);
+		}
+		profileRepo.delete(sp);
 	}
 }

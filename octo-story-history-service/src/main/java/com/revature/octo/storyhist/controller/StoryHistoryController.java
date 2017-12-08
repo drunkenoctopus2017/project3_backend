@@ -57,5 +57,11 @@ public class StoryHistoryController {
 	@GetMapping(path="/deleteStoryProfilesByBoardId/{boardId}")
 	public void deleteStoryProfilesByBoardId(@PathVariable int boardId) {
 		storyHistService.deleteStoryProfilesByBoardId(boardId);
+
+	}
+	
+	@GetMapping(path="/deleteStoryProfileAndEvents/{storyId}")
+	public void deleteStoryProfileAndEvents(@PathVariable int storyId) {
+		storyHistService.deleteStoryProfileAndEvents(storyId);
 	}
 }

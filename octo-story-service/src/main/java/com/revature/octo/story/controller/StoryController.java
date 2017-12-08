@@ -49,4 +49,9 @@ public class StoryController {
 	public String deleteStoriesByBoardId(@PathVariable int boardId) {
 		return storyService.deleteStoriesByBoardId(boardId);
 	}
+	
+	@PostMapping(path="/deleteStory", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public void deleteStory(@RequestBody Story story) {
+		storyRepo.delete(story);
+	}
 }
