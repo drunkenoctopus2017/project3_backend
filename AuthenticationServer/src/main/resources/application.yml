@@ -1,5 +1,5 @@
 # octo authentication server
-server.contextPath: /auth
+
 server:
   port: 8090
 
