@@ -4,11 +4,11 @@ spring:
   cloud:
     config:
       uri: ${SPRING_CONFIG_URI:http://18.221.213.251:9000}
-server:
-  port: 8765
-hystrix:
- command:
-   default:
-     execution:
-       timeout:
-         enabled: false
+#server:
+#  port: 8765
+#hystrix:
+# command:
+#   default:
+#     execution:
+#       timeout:
+#         enabled: false
