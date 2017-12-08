@@ -1,3 +1,4 @@
+#Story Service Bootstrap
 spring:
   application:
     name: octo-story-service
@@ -36,6 +37,11 @@ eureka:
   instance:
     hostname: localhost
     instance-id: ${spring.application.name}:${random.int}
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhostL8761/eureka/
 security:
   oauth2:
     resource:

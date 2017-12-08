@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.revature.octo.story.message.StoryUpdateMessageSource;
 import com.revature.octo.story.model.Story;
 import com.revature.octo.story.repository.StoryRepository;
@@ -21,7 +22,12 @@ public class StoryService {
 	@Autowired
 	StoryRepository storyRepo;
 	
+	@HystrixCommand(fallbackMethod="reliable")
 	public List<Story> getStoriesByBoardId(int boardId){
+		
+//		Health.down().withDetail("Custom Error Code", errorcode).build();
+		CustomHealthCheck check = new CustomHealthCheck();
+		check.health();
 		return storyRepo.findByBoardId(boardId);
 	}
 	
@@ -51,5 +57,10 @@ public class StoryService {
 		}
 		//we don't currently delete stories, but when we do, send a message here as well.
 		return "successfully deleted stories for this board: "+boardId;
+	}
+	
+	public List<Story> reliable() {
+		List<Story> empty = null;
+		return empty;
 	}
 }

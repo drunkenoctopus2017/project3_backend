@@ -17,6 +17,7 @@ import com.revature.octo.board.repository.ScrumBoardRepository;
 
 @Service
 public class ScrumBoardService {
+	
 	@Autowired
 	ScrumBoardRepository boardRepo;
 	
@@ -84,5 +85,9 @@ public class ScrumBoardService {
 		boardList.add(board);
 		
 		return boardList;
+	}
+	
+	public String reliable() {
+		return "Testing Circuit Breaking with Hystrix";
 	}
 }
