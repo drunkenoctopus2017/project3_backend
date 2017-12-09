@@ -59,6 +59,10 @@ public class StoryService {
 		return "successfully deleted stories for this board: "+boardId;
 	}
 	
+	public void deleteStory(Story story) {
+		storyRepo.delete(story);
+	}
+	
 	public List<Story> reliable() {
 		List<Story> empty = null;
 		return empty;

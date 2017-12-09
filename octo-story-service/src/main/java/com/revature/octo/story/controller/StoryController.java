@@ -52,6 +52,6 @@ public class StoryController {
 	
 	@PostMapping(path="/deleteStory", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public void deleteStory(@RequestBody Story story) {
-		storyRepo.delete(story);
+		storyService.deleteStory(story);
 	}
 }
