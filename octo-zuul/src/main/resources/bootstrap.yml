@@ -3,7 +3,7 @@ spring:
     name: octo-zuul
   cloud:
     config:
-      uri: ${SPRING_CONFIG_URI:http://18.221.213.251:9000}
+      uri: ${SPRING_CONFIG_URI:http://18.217.124.245:9000}
 #server:
 #  port: 8765
 #hystrix:

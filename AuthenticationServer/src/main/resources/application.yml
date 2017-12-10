@@ -32,4 +32,4 @@ eureka:
     fetch-registry: true
     serviceUrl:
 #      defaultZone: http://${DOCKER_HOST_IP}:8761/eureka/
-      defaultZone: http://18.221.213.251:8761/eureka/
+      defaultZone: http://18.217.124.245:8761/eureka/
