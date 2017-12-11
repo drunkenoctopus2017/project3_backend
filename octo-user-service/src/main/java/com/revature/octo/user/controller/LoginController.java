@@ -87,6 +87,8 @@ public class LoginController {
 		}
 		
 		System.out.println(loggedInUser);
+		
+		loggedInUser.setPassword("Password Not Shown.");
 
 		return loggedInUser;
 	}

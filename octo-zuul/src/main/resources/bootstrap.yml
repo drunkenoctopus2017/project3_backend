@@ -3,12 +3,12 @@ spring:
     name: octo-zuul
   cloud:
     config:
-      uri: ${SPRING_CONFIG_URI:http://18.217.119.188:9000}
-server:
-  port: 8765
-hystrix:
- command:
-   default:
-     execution:
-       timeout:
-         enabled: false
+      uri: ${SPRING_CONFIG_URI:http://18.217.124.245:9000}
+#server:
+#  port: 8765
+#hystrix:
+# command:
+#   default:
+#     execution:
+#       timeout:
+#         enabled: false
