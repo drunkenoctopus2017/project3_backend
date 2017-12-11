@@ -72,4 +72,9 @@ public class StoryController {
 		//we don't currently delete stories, but when we do, send a message here as well.
 		return "successfully deleted stories for this board: "+boardId;
 	}
+	
+	@PostMapping(path="/deleteStory", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public void deleteStory(@RequestBody Story story) {
+		storyRepo.delete(story);
+	}
 }
