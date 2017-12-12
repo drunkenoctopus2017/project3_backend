@@ -65,6 +65,7 @@ public class StoryService {
 	
 	public List<Story> reliable() {
 		List<Story> empty = null;
+		System.err.println("THE RELIABLE METHOD WAS CALLED");
 		return empty;
 	}
 }
