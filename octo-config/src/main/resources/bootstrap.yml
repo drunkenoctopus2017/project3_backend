@@ -3,8 +3,22 @@ server:
 spring:
   application:
     name: octo-config
+  profiles:
+    active: localhost
+---
+spring:
+  profiles: production    
   cloud:
     config:
       server:
         git:
           uri: https://github.com/drunkenoctopus2017/project3_config.git
+---
+spring:
+  profiles: localhost
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/drunkenoctopus2017/project3_config.git
+          default-label: localhost
