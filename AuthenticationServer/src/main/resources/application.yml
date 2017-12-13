@@ -1,5 +1,5 @@
 # octo authentication server
-server.contextPath: /auth
+#server.contextPath: /auth
 server:
   port: 8090
 
@@ -12,7 +12,7 @@ spring:
   application:
     name: octo-auth
       
-  datasource:
+  datasource:                     
     url: jdbc:oracle:thin:@octocat.crwx5goxs3em.us-east-2.rds.amazonaws.com:1521:ORCL
     username: system_user_db
     password: p4ssw0rd

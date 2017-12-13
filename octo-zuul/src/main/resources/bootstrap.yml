@@ -25,3 +25,24 @@ zuul:
       path: /octo-auth/**
       sensitiveHeaders: 
       serviceId: octo-auth
+    octo-user-management-service:
+      path: /octo-user-management-service/**
+      sensitiveHeaders:
+      serviceId: octo-user-management-service
+    octo-board-management-service:
+      path: /octo-board-management-service/**
+      sensitiveHeaders:
+      serviceId: octo-board-management-service
+    octo-story-service:
+      path: /octo-story-service/**
+      sensitiveHeaders:
+      serviceId: octo-story-service
+    octo-story-history-service:
+      path: /octo-story-history-service/**
+      sensitiveHeaders:
+      serviceId: octo-story-history-service
+    octo-task-service:
+      path: /octo-task-service/**
+      sensitiveHeaders:
+      serviceId: octo-task-service
+      

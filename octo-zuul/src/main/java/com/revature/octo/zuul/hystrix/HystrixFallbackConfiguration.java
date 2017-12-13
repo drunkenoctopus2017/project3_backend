@@ -28,17 +28,17 @@ public class HystrixFallbackConfiguration {
                 return new ClientHttpResponse() {
                     @Override
                     public HttpStatus getStatusCode() throws IOException {
-                        return HttpStatus.OK;
+                        return HttpStatus.I_AM_A_TEAPOT;
                     }
  
                     @Override
                     public int getRawStatusCode() throws IOException {
-                        return HttpStatus.OK.value();
+                        return HttpStatus.I_AM_A_TEAPOT.value();
                     }
  
                     @Override
                     public String getStatusText() throws IOException {
-                        return HttpStatus.OK.toString();
+                        return HttpStatus.I_AM_A_TEAPOT.toString();
                     }
  
                     @Override
