@@ -2,7 +2,7 @@ spring:
   application:
     name: octo-config
   profiles:
-    active: localhost
+    active: production
 ---
 spring:
   profiles: production    
