@@ -42,6 +42,7 @@ public class SystemUser {//implements UserDetails {
 	@NotNull
 	private String username;
 	
+	@Column(length=4000) 
 	@Size(min=1)
 	@NotNull
 	private String password;

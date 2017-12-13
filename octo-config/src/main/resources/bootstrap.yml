@@ -1,18 +1,24 @@
-server:
-  port: 9000
+
 spring:
   application:
     name: octo-config
   profiles:
-    active: localhost
+    active: production
 ---
 spring:
-  profiles: production    
+  profiles: production
+  rabbitmq:
+    host: 18.217.124.245
+    password: guest
+    username: guest
+    port: 5672    
   cloud:
     config:
       server:
         git:
           uri: https://github.com/drunkenoctopus2017/project3_config.git
+server:
+  port: 9000
 ---
 spring:
   profiles: localhost
@@ -22,3 +28,5 @@ spring:
         git:
           uri: https://github.com/drunkenoctopus2017/project3_config.git
           default-label: localhost
+server:
+  port: 8888
