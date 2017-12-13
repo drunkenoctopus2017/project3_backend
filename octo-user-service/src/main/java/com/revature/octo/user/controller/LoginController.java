@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ import com.revature.octo.user.repository.BoardUserJoinRepository;
 import com.revature.octo.user.repository.SystemUserRepository;
 import com.revature.octo.user.service.SystemUserService;
 
-
+@RefreshScope
 @RestController
 public class LoginController {
 	

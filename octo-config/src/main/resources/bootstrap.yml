@@ -22,6 +22,11 @@ server:
 ---
 spring:
   profiles: localhost
+  rabbitmq:
+    host: localhost
+    password: guest
+    username: guest
+    port: 5672 
   cloud:
     config:
       server:
