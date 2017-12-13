@@ -8,9 +8,9 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @EnableEurekaServer
 @EnableEurekaClient
 @SpringBootApplication
-public class OctoEurekaApplication {
+public class OctoEureka2Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OctoEurekaApplication.class, args);
+		SpringApplication.run(OctoEureka2Application.class, args);
 	}
 }
