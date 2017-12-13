@@ -1,35 +1,39 @@
 # octo authentication server
 # server.contextPath: /auth
-server:
-  port: 8090
 
-keystore:
-  password: drunkenOctopus
-  
+
 spring:
   mvc:
     dispatchOptionsRequest: true
   application:
     name: octo-auth
-      
-  jpa:
-    database-platform: org.hibernate.dialect.Oracle10gDialect
-    database: ORACLE
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-  datasource:
-    url: jdbc:oracle:thin:@octocat.crwx5goxs3em.us-east-2.rds.amazonaws.com:1521:ORCL
-    username: system_user_db
-    password: p4ssw0rd
-    driverClassName: oracle.jdbc.OracleDriver
-    tomcat:
-      initial-size: 1
+  cloud:
+    config:
+      uri: ${SPRING_CONFIG_URI:http://18.217.124.245:9000}
 
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    serviceUrl:
-#      defaultZone: http://${DOCKER_HOST_IP}:8761/eureka/
-      defaultZone: http://18.217.124.245:8761/eureka/
+
+#server:
+#  port: 8090
+#keystore:
+#  password: drunkenOctopus      
+#  jpa:
+#    database-platform: org.hibernate.dialect.Oracle10gDialect
+#    database: ORACLE
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#  datasource:
+#    url: jdbc:oracle:thin:@octocat.crwx5goxs3em.us-east-2.rds.amazonaws.com:1521:ORCL
+#    username: system_user_db
+#    password: p4ssw0rd
+#    driverClassName: oracle.jdbc.OracleDriver
+#    tomcat:
+#      initial-size: 1
+#
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    serviceUrl:
+##      defaultZone: http://${DOCKER_HOST_IP}:8761/eureka/
+#      defaultZone: http://18.217.124.245:8761/eureka/
