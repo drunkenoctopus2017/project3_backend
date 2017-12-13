@@ -1,5 +1,3 @@
-server:
-  port: 9000
 spring:
   application:
     name: octo-config
@@ -13,6 +11,8 @@ spring:
       server:
         git:
           uri: https://github.com/drunkenoctopus2017/project3_config.git
+server:
+  port: 9000
 ---
 spring:
   profiles: localhost
@@ -22,3 +22,5 @@ spring:
         git:
           uri: https://github.com/drunkenoctopus2017/project3_config.git
           default-label: localhost
+server:
+  port: 8888
