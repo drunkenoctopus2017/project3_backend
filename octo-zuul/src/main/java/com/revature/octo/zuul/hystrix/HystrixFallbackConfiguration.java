@@ -19,7 +19,7 @@ public class HystrixFallbackConfiguration {
 		return new ZuulFallbackProvider() {
 			@Override
 			public String getRoute() {
-				//Might be confusing. it's the servicdId property not the route
+				//Might be confusing. it's the serviceId property not the route
 				return "*";
 			}
 
